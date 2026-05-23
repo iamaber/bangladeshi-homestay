@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import { withBasePath } from "@/lib/paths";
 
 const hosts = [
   {
@@ -10,7 +11,7 @@ const hosts = [
     desc: "A warm, carefully selected household prepared to welcome guests into everyday family life, home-cooked meals, and local cultural routines.",
     languages: "Bangla, English, Hindi",
     available: true,
-    image: "/images/host-home-entrance.jpeg",
+    image: withBasePath("/images/host-home-entrance.jpeg"),
   },
   {
     id: "future-host-family",
@@ -19,7 +20,7 @@ const hosts = [
     desc: "Additional host homes will be added as the platform expands. Family identity and exact location remain private until the booking process.",
     languages: "Bangla, English",
     available: false,
-    image: "/images/family-living-dining-room.jpeg",
+    image: withBasePath("/images/family-living-dining-room.jpeg"),
   },
   {
     id: "seasonal-host-family",
@@ -28,7 +29,7 @@ const hosts = [
     desc: "A seasonal host profile reserved for future availability. Details will be shown only when the home is approved and ready for guests.",
     languages: "Bangla, English",
     available: false,
-    image: "/images/riverside-sunset.jpeg",
+    image: withBasePath("/images/riverside-sunset.jpeg"),
   },
 ];
 

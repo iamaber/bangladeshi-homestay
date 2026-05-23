@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
+import { withBasePath } from "@/lib/paths";
 
 export default function Hero() {
   const { t } = useI18n();
@@ -10,7 +11,7 @@ export default function Hero() {
       {/* Background image with parallax hint via scale */}
       <div className="absolute inset-0">
         <img
-          src="/images/river-boat-sunset.jpeg"
+          src={withBasePath("/images/river-boat-sunset.jpeg")}
           alt="Boat on a Bangladeshi river at sunset"
           className="w-full h-full object-cover scale-105"
         />

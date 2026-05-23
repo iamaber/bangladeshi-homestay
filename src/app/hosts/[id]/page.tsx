@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
+import { withBasePath } from "@/lib/paths";
 
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const openMonths = ["Feb", "Mar", "May", "Jun", "Aug", "Sep", "Nov", "Dec"];
@@ -38,21 +39,21 @@ export default function HostProfilePage() {
                 <div className="grid grid-cols-2 gap-1.5">
                   <div className="col-span-2 aspect-[2/1] rounded-sm overflow-hidden">
                     <img
-                      src="/images/host-home-entrance.jpeg"
+                      src={withBasePath("/images/host-home-entrance.jpeg")}
                       alt="Entrance of a Bangladeshi host family home"
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="aspect-square rounded-sm overflow-hidden">
                     <img
-                      src="/images/guest-bedroom-blue.jpeg"
+                      src={withBasePath("/images/guest-bedroom-blue.jpeg")}
                       alt="Guest bedroom in a Bangladeshi host home"
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="aspect-square rounded-sm overflow-hidden">
                     <img
-                      src="/images/home-kitchen.jpeg"
+                      src={withBasePath("/images/home-kitchen.jpeg")}
                       alt="Kitchen inside a Bangladeshi host family home"
                       className="w-full h-full object-cover"
                     />
@@ -99,7 +100,7 @@ export default function HostProfilePage() {
                 </div>
 
                 <div className="mt-8">
-                  <Link href="/#packages" className="btn-fill-sm inline-block">Request to Stay — From CHF 2,700</Link>
+                  <Link href="/booking" className="btn-fill-sm inline-block">Request to Stay — From CHF 2,700</Link>
                 </div>
               </div>
             </div>
@@ -135,7 +136,7 @@ export default function HostProfilePage() {
             <p className="text-[15px] font-light text-cream/70 leading-[1.85] mb-8">
               Book your two-week immersive stay and experience Bangladesh like a local.
             </p>
-            <Link href="/#packages" className="btn-cream inline-block">Book Now — From CHF 2,700</Link>
+            <Link href="/booking" className="btn-cream inline-block">Book Now — From CHF 2,700</Link>
           </div>
         </section>
       </main>

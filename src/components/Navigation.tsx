@@ -63,12 +63,12 @@ export default function Navigation() {
               </button>
             ))}
           </div>
-          <Link
-            href="/#packages"
+          <a
+            href={withBasePath("/booking")}
             className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase bg-transparent border border-cream/35 text-cream px-[22px] py-2 cursor-pointer transition-all hover:bg-gold-warm hover:border-gold-warm hover:text-ink no-underline"
           >
             {t("bookNow")}
-          </Link>
+          </a>
         </div>
 
         <button
@@ -112,13 +112,13 @@ export default function Navigation() {
                 </button>
               ))}
             </div>
-            <Link
-              href="/#packages"
+            <a
+              href={withBasePath("/booking")}
               onClick={() => setMobileOpen(false)}
               className="btn-fill text-center mt-4"
             >
               {t("bookNow")}
-            </Link>
+            </a>
           </div>
         </div>
       )}

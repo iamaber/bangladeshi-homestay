@@ -2,6 +2,7 @@
 
 import SectionReveal from "@/components/SectionReveal";
 import { useI18n } from "@/lib/i18n";
+import { withBasePath } from "@/lib/paths";
 
 export default function CTA() {
   const { t } = useI18n();
@@ -34,7 +35,7 @@ export default function CTA() {
                 {t("ctaDesc")}
               </p>
               <div className="flex gap-4">
-                <a href="#packages" className="btn-cream">
+                <a href={withBasePath("/booking")} className="btn-cream">
                   {t("bookNow")}
                 </a>
                 <a href="#contact" className="btn-ghost-cream">

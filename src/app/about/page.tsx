@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { HandHeart, Leaf, Orbit } from "lucide-react";
+import { withBasePath } from "@/lib/paths";
 
 export default function AboutPage() {
   return (
@@ -41,17 +42,17 @@ export default function AboutPage() {
             </div>
             <div className="grid grid-cols-2 gap-2">
               <img
-                src="/images/family-sitting-room.jpeg"
+                src={withBasePath("/images/family-sitting-room.jpeg")}
                 alt="Sitting room in a Bangladeshi host family home"
                 className="col-span-2 aspect-[16/10] w-full object-cover"
               />
               <img
-                src="/images/water-lily-harvest.jpeg"
+                src={withBasePath("/images/water-lily-harvest.jpeg")}
                 alt="Person gathering water lilies in Bangladesh"
                 className="aspect-[4/5] w-full object-cover"
               />
               <img
-                src="/images/riverside-sunset.jpeg"
+                src={withBasePath("/images/riverside-sunset.jpeg")}
                 alt="Sunset over a Bangladeshi riverside"
                 className="aspect-[4/5] w-full object-cover"
               />

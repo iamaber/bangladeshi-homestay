@@ -1,4 +1,5 @@
 import SectionReveal from "@/components/SectionReveal";
+import { withBasePath } from "@/lib/paths";
 
 const months = [
   "Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -17,21 +18,21 @@ export default function HostFamily() {
             <div className="grid grid-cols-2 gap-1.5">
               <div className="col-span-2 aspect-[2/1] rounded-sm overflow-hidden">
                 <img
-                  src="/images/host-home-entrance.jpeg"
+                  src={withBasePath("/images/host-home-entrance.jpeg")}
                   alt="Entrance of a Bangladeshi host family home"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="aspect-square rounded-sm overflow-hidden">
                 <img
-                  src="/images/guest-bedroom-window.jpeg"
+                  src={withBasePath("/images/guest-bedroom-window.jpeg")}
                   alt="Guest bedroom with window in a Bangladeshi host home"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="aspect-square rounded-sm overflow-hidden">
                 <img
-                  src="/images/home-kitchen.jpeg"
+                  src={withBasePath("/images/home-kitchen.jpeg")}
                   alt="Kitchen inside a Bangladeshi host family home"
                   className="w-full h-full object-cover"
                 />
@@ -104,7 +105,7 @@ export default function HostFamily() {
               </div>
 
               <div className="mt-8">
-                <a href="#booking" className="btn-fill-sm inline-block">
+                <a href={withBasePath("/booking")} className="btn-fill-sm inline-block">
                   Request to Stay
                 </a>
               </div>

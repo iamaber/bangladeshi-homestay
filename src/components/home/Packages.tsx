@@ -150,7 +150,7 @@ export default function Packages() {
 
           <SectionReveal>
             <div className="flex gap-4 mt-9">
-              <Link href="/#packages" className="btn-fill-sm">
+              <Link href="/booking" className="btn-fill-sm">
                 {t("bookYourStay")}
               </Link>
               <Link href="/#packages" className="btn-line-sm">

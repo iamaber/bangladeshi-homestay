@@ -2,6 +2,7 @@
 
 import SectionReveal from "@/components/SectionReveal";
 import { useI18n } from "@/lib/i18n";
+import { withBasePath } from "@/lib/paths";
 
 export default function About() {
   const { t } = useI18n();
@@ -48,7 +49,7 @@ export default function About() {
             <div>
               <div className="aspect-[4/5] overflow-hidden">
                 <img
-                  src="/images/family-living-dining-room.jpeg"
+                  src={withBasePath("/images/family-living-dining-room.jpeg")}
                   alt="Dining and living room inside a Bangladeshi host family home"
                   className="h-full w-full object-cover"
                 />
