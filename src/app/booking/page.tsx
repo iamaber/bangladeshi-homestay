@@ -38,13 +38,13 @@ export default function BookingPage() {
       <Navigation />
       <main className="pt-16">
         <section className="pt-20 pb-20 px-6 lg:px-14 bg-cream">
-          <div className="max-w-[1180px] mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-start">
+          <div className="max-w-1180px mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-start">
             <div>
               <span className="eyebrow">Booking</span>
               <h1 className="heading font-serif text-[clamp(34px,4vw,58px)] leading-[1.08] text-ink tracking-[-0.01em]">
                 Book your Bangladeshi <em>homestay experience</em>
               </h1>
-              <p className="mt-6 text-[15.5px] font-light text-muted leading-[1.85] max-w-[620px]">
+              <p className="mt-6 text-[15.5px] font-light text-muted leading-[1.85] max-w-620px">
                 Submit your booking request and receive confirmation with a Swiss QR payment invoice by email. Payment is completed after submission, not on this page.
               </p>
             </div>
@@ -61,7 +61,7 @@ export default function BookingPage() {
         </section>
 
         <section className="pb-24 px-6 lg:px-14 bg-cream">
-          <div className="max-w-[1180px] mx-auto">
+          <div className="max-w-1180px mx-auto">
             {submitted ? (
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.8fr] gap-12 lg:gap-20 items-start">
                 <div className="py-12 border-y border-rule">
@@ -69,7 +69,7 @@ export default function BookingPage() {
                   <h2 className="font-serif text-[clamp(30px,3vw,44px)] text-ink leading-[1.14] mb-5">
                     Your booking request has been received.
                   </h2>
-                  <p className="text-[15px] font-light text-muted leading-[1.85] max-w-[620px]">
+                  <p className="text-[15px] font-light text-muted leading-[1.85] max-w-620px">
                     You will receive a confirmation email with the Swiss QR payment invoice within 24 hours. Once payment is received, the booking is confirmed and the pre-arrival guide will be sent.
                   </p>
                 </div>

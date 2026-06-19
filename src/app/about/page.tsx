@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Image from "next/image";
 import Link from "next/link";
 import { HandHeart, Leaf, Orbit } from "lucide-react";
 import { withBasePath } from "@/lib/paths";
@@ -10,7 +11,7 @@ export default function AboutPage() {
       <Navigation />
       <main className="pt-16">
         <section className="pt-20 pb-24 px-6 lg:px-14 bg-cream">
-          <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
+          <div className="max-w-1200px mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
             <div>
             <span className="eyebrow">About Us</span>
             <h1 className="heading font-serif text-[clamp(32px,3.5vw,50px)] leading-[1.12] text-ink tracking-[-0.01em]">
@@ -41,27 +42,36 @@ export default function AboutPage() {
             </div>
             </div>
             <div className="grid grid-cols-2 gap-2">
-              <img
+              <Image
                 src={withBasePath("/images/family-sitting-room.jpeg")}
                 alt="Sitting room in a Bangladeshi host family home"
-                className="col-span-2 aspect-[16/10] w-full object-cover"
+                width={2048}
+                height={1536}
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="col-span-2 aspect-16/10 w-full object-cover"
               />
-              <img
+              <Image
                 src={withBasePath("/images/water-lily-harvest.jpeg")}
                 alt="Person gathering water lilies in Bangladesh"
-                className="aspect-[4/5] w-full object-cover"
+                width={1200}
+                height={1600}
+                sizes="(min-width: 1024px) 20vw, 50vw"
+                className="aspect-4/5 w-full object-cover"
               />
-              <img
+              <Image
                 src={withBasePath("/images/riverside-sunset.jpeg")}
                 alt="Sunset over a Bangladeshi riverside"
-                className="aspect-[4/5] w-full object-cover"
+                width={1200}
+                height={1600}
+                sizes="(min-width: 1024px) 20vw, 50vw"
+                className="aspect-4/5 w-full object-cover"
               />
             </div>
           </div>
         </section>
 
         <section className="py-24 px-6 lg:px-14 bg-green">
-          <div className="max-w-[900px] mx-auto">
+          <div className="max-w-900px mx-auto">
             <h2 className="heading font-serif text-[clamp(28px,3vw,42px)] text-cream leading-[1.12] mb-12">
               What <em>guides us</em>
             </h2>
@@ -83,7 +93,7 @@ export default function AboutPage() {
 
         <section className="py-24 px-6 lg:px-14 bg-terra relative overflow-hidden">
           <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(var(--color-cream) 1px, transparent 1px), linear-gradient(90deg, var(--color-cream) 1px, transparent 1px)", backgroundSize: "48px 48px" }} />
-          <div className="relative z-10 max-w-[700px] mx-auto text-center">
+          <div className="relative z-10 max-w-700px mx-auto text-center">
             <h2 className="font-serif text-[clamp(28px,3vw,42px)] text-cream leading-[1.12] mb-4">
               Ready to see Bangladesh <em>differently?</em>
             </h2>

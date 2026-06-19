@@ -7,7 +7,7 @@ export default function TermsPage() {
       <Navigation />
       <main className="pt-16">
         <section className="pt-20 pb-24 px-6 lg:px-14 bg-cream">
-          <div className="max-w-[800px] mx-auto">
+          <div className="max-w-800px mx-auto">
             <h1 className="heading font-serif text-[clamp(32px,3.5vw,50px)] leading-[1.12] text-ink tracking-[-0.01em]">
               Terms &amp; Conditions
             </h1>
@@ -15,7 +15,7 @@ export default function TermsPage() {
           </div>
         </section>
         <section className="pb-24 px-6 lg:px-14 bg-cream">
-          <div className="max-w-[800px] mx-auto space-y-8">
+          <div className="max-w-800px mx-auto space-y-8">
             {[
               { title: "1. General", text: "These Terms and Conditions govern the use of the Gutu Gasthaus platform and the booking of homestay experiences in Bangladesh. By using our website and booking a stay, you agree to these terms in full." },
               { title: "2. Booking and Payment", text: "Bookings are confirmed after submission and payment. Payment is processed by invoice and bank transfer. No credit card is required at the time of booking. After submitting your booking, you will receive a confirmation email with payment details. All prices are listed in CHF." },

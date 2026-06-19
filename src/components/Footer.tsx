@@ -23,8 +23,8 @@ export default function Footer() {
   const { t } = useI18n();
 
   return (
-    <footer id="contact" className="bg-ink py-[72px] px-6 lg:px-14">
-      <div className="max-w-[1400px] mx-auto">
+    <footer id="contact" className="bg-ink py-72px px-6 lg:px-14">
+      <div className="max-w-1400px mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 pb-14 border-b border-white/7">
           <div className="lg:col-span-1">
             <Image
@@ -34,7 +34,7 @@ export default function Footer() {
               height={200}
               className="block h-12 w-auto mb-4"
             />
-            <p className="text-[13.5px] font-light text-cream/40 leading-relaxed max-w-[240px]">
+            <p className="text-[13.5px] font-light text-cream/40 leading-relaxed max-w-240px">
               {t("footerDesc")}
             </p>
           </div>
