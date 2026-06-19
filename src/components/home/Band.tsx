@@ -24,7 +24,7 @@ export default function Band() {
   ];
 
   return (
-    <section className="bg-green px-6 lg:px-14 py-16 border-t border-white/5">
+    <section className="bg-green px-6 lg:px-14 py-12 border-t border-white/5">
       <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-0 border-y border-white/10">
       {items.map((item, i) => (
         <div

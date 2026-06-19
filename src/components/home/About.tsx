@@ -8,13 +8,13 @@ export default function About() {
   const { t } = useI18n();
 
   return (
-    <section className="py-24 px-6 lg:px-14" id="about">
+    <section className="py-16 px-6 lg:px-14" id="about">
       <div className="max-w-[1400px] mx-auto">
         <SectionReveal>
           <div className="grid grid-cols-1 lg:grid-cols-[5fr_4fr] gap-12 lg:gap-24 items-start">
             <div>
               <span className="eyebrow">{t("aboutEyebrow")}</span>
-              <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-normal leading-[1.12] text-ink tracking-[-0.01em] mb-8">
+              <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-bold leading-[1.12] text-ink tracking-[-0.01em] mb-8">
                 {t("aboutHeadlineA")}
                 <br />
                 <em>{t("aboutHeadlineB")}</em>

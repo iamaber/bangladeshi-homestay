@@ -18,6 +18,11 @@ type TranslationKey =
   | "navPackages"
   | "navHosts"
   | "navFaq"
+  | "navExperience"
+  | "navStudentPackages"
+  | "navIncludes"
+  | "navPricing"
+  | "navCulturalLife"
   | "bookNow"
   | "heroHeadlineA"
   | "heroHeadlineB"
@@ -71,6 +76,11 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     navPackages: "Packages",
     navHosts: "Host Families",
     navFaq: "FAQ",
+    navExperience: "Experience",
+    navStudentPackages: "Student Packages",
+    navIncludes: "What's Included",
+    navPricing: "Pricing & Payment",
+    navCulturalLife: "Cultural Life",
     bookNow: "Book Now",
     heroHeadlineA: "Live Bangladesh.",
     heroHeadlineB: "Don't Just Visit It.",
@@ -134,6 +144,11 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     navPackages: "Pakete",
     navHosts: "Gastfamilien",
     navFaq: "FAQ",
+    navExperience: "Erlebnis",
+    navStudentPackages: "Studentenpakete",
+    navIncludes: "Leistungen",
+    navPricing: "Preise & Zahlung",
+    navCulturalLife: "Kulturelles Leben",
     bookNow: "Jetzt buchen",
     heroHeadlineA: "Lebe Bangladesch.",
     heroHeadlineB: "Besuche es nicht nur.",
@@ -197,6 +212,11 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     navPackages: "Forfaits",
     navHosts: "Familles d'accueil",
     navFaq: "FAQ",
+    navExperience: "Expérience",
+    navStudentPackages: "Forfaits étudiants",
+    navIncludes: "Ce qui est inclus",
+    navPricing: "Prix & paiement",
+    navCulturalLife: "Vie culturelle",
     bookNow: "Réserver",
     heroHeadlineA: "Vivez le Bangladesh.",
     heroHeadlineB: "Ne faites pas que le visiter.",
@@ -260,6 +280,11 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     navPackages: "Pacchetti",
     navHosts: "Famiglie ospitanti",
     navFaq: "FAQ",
+    navExperience: "Esperienza",
+    navStudentPackages: "Pacchetti studenti",
+    navIncludes: "Cosa è incluso",
+    navPricing: "Prezzi & pagamento",
+    navCulturalLife: "Vita culturale",
     bookNow: "Prenota ora",
     heroHeadlineA: "Vivi il Bangladesh.",
     heroHeadlineB: "Non limitarti a visitarlo.",

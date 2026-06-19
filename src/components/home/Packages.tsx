@@ -24,11 +24,11 @@ export default function Packages() {
   const { t } = useI18n();
 
   return (
-    <section className="py-24 px-6 lg:px-14 bg-cream2" id="packages">
+    <section className="py-16 px-6 lg:px-14 bg-cream2" id="packages">
       <div className="max-w-[1400px] mx-auto">
         <SectionReveal>
           <span className="eyebrow">{t("packagesEyebrow")}</span>
-          <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-normal leading-[1.12] text-ink tracking-[-0.01em]">
+          <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-bold leading-[1.12] text-ink tracking-[-0.01em]">
             {t("packagesHeadlineA")} <em>{t("packagesHeadlineB")}</em>
           </h2>
         </SectionReveal>
@@ -153,11 +153,11 @@ export default function Packages() {
               <Link href="/booking" className="btn-fill-sm">
                 {t("bookYourStay")}
               </Link>
-              <Link href="/#packages" className="btn-line-sm">
+              <Link href="#includes" className="btn-line-sm">
                 {t("comparePackages")}
               </Link>
             </div>
-            <p className="mt-7 text-[13px] italic text-muted">
+            <p className="mt-7 text-[13px] text-muted">
               All prices are listed in CHF. Payment details are sent by invoice
               after booking. Personal market purchases, souvenirs, and
               international flights (unless selected) are not included.

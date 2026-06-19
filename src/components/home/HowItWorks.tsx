@@ -12,11 +12,11 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section className="py-24 px-6 lg:px-14 bg-green" id="how">
+    <section className="py-16 px-6 lg:px-14 bg-green" id="how">
       <div className="max-w-[1400px] mx-auto">
         <SectionReveal>
           <span className="eyebrow">{t("journeyEyebrow")}</span>
-          <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-normal leading-[1.12] text-cream tracking-[-0.01em]">
+          <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-bold leading-[1.12] text-cream tracking-[-0.01em]">
             {t("journeyHeadlineA")} <em>{t("journeyHeadlineB")}</em>
           </h2>
         </SectionReveal>

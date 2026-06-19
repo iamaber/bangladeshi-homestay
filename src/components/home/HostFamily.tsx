@@ -9,7 +9,7 @@ const openMonths = ["Feb", "Mar", "May", "Jun", "Aug", "Sep", "Nov", "Dec"];
 
 export default function HostFamily() {
   return (
-    <section className="py-24 px-6 lg:px-14" id="host">
+    <section className="py-16 px-6 lg:px-14" id="host">
       <div className="max-w-[1400px] mx-auto">
         <SectionReveal>
           <span className="eyebrow">Featured Host Family</span>
@@ -41,7 +41,7 @@ export default function HostFamily() {
 
             {/* Info */}
             <div>
-              <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-normal leading-[1.12] text-ink tracking-[-0.01em] mb-0">
+              <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-bold leading-[1.12] text-ink tracking-[-0.01em] mb-0">
                 Meet your
                 <br />
                 <em>future host family</em>
@@ -54,7 +54,7 @@ export default function HostFamily() {
                 Bangladesh — exact family details shared after booking review
               </div>
 
-              <p className="font-serif text-[17px] italic text-ink2 leading-[1.75] pl-5 border-l-2 border-l-gold mb-8">
+              <p className="font-serif text-[17px] text-ink2 leading-[1.75] pl-5 border-l-2 border-l-gold mb-8">
                 &ldquo;A warm, carefully selected Bangladeshi household welcomes guests into everyday family life, shared meals, local routines, and cultural exchange.&rdquo;
               </p>
 

@@ -102,7 +102,7 @@ export default function ContactPage() {
                 <h2 className="font-serif text-[22px] text-ink mb-6">Contact information</h2>
                 <div className="space-y-6">
                   <div className="pt-7 border-t-2 border-t-gold">
-                    <p className="font-serif text-[18px] italic text-ink leading-[1.5] mb-2">
+                    <p className="font-serif text-[18px] text-ink leading-[1.5] mb-2">
                       &ldquo;A table set for guests is a prayer answered in Bangladesh.&rdquo;
                     </p>
                     <span className="text-[12px] font-medium tracking-[0.1em] uppercase text-muted">— Bengali Proverb</span>

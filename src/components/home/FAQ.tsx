@@ -45,13 +45,13 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-24 px-6 lg:px-14" id="faq">
+    <section className="py-16 px-6 lg:px-14" id="faq">
       <div className="max-w-[1400px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-10 lg:gap-20 items-start">
           <SectionReveal>
             <div>
               <span className="eyebrow">FAQ</span>
-              <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-normal leading-[1.12] text-ink tracking-[-0.01em]">
+              <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-bold leading-[1.12] text-ink tracking-[-0.01em]">
                 Common
                 <br />
                 <em>questions</em>

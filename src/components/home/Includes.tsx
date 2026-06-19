@@ -21,11 +21,11 @@ const notIncluded = [
 
 export default function Includes() {
   return (
-    <section className="py-24 px-6 lg:px-14 bg-green" id="includes">
+    <section className="py-16 px-6 lg:px-14 bg-green" id="includes">
       <div className="max-w-[1400px] mx-auto">
         <SectionReveal>
           <span className="eyebrow">What&apos;s Included</span>
-          <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-normal leading-[1.12] text-cream tracking-[-0.01em]">
+          <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-bold leading-[1.12] text-cream tracking-[-0.01em]">
             Everything you need,
             <br />
             <em>taken care of</em>
@@ -37,7 +37,7 @@ export default function Includes() {
             <div className="lg:pr-16 lg:border-r lg:border-white/10">
               {leftItems.map((item) => (
                 <div key={item.num} className="flex gap-5 py-[22px] border-b border-white/7 items-start">
-                  <span className="font-serif text-[13px] italic text-cream/25 min-w-[28px] mt-0.5">
+                  <span className="font-serif text-[13px] text-cream/25 min-w-[28px] mt-0.5">
                     {item.num}
                   </span>
                   <div>
@@ -57,7 +57,7 @@ export default function Includes() {
             <div className="lg:pl-16">
               {rightItems.map((item) => (
                 <div key={item.num} className="flex gap-5 py-[22px] border-b border-white/7 items-start">
-                  <span className="font-serif text-[13px] italic text-cream/25 min-w-[28px] mt-0.5">
+                  <span className="font-serif text-[13px] text-cream/25 min-w-[28px] mt-0.5">
                     {item.num}
                   </span>
                   <div>
@@ -81,7 +81,7 @@ export default function Includes() {
             </span>
             <div className="flex flex-wrap gap-0">
               {notIncluded.map((item, i) => (
-                <span key={item} className="text-[13px] font-light italic text-cream/35 font-serif">
+                <span key={item} className="text-[13px] font-light text-cream/35 font-serif">
                   {item}
                   {i < notIncluded.length - 1 && (
                     <span className="text-cream/20 mx-2"> · </span>

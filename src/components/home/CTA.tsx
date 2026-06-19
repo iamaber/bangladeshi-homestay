@@ -8,7 +8,7 @@ export default function CTA() {
   const { t } = useI18n();
 
   return (
-    <section className="py-24 px-6 lg:px-14 bg-terra relative overflow-hidden" id="booking">
+    <section className="py-16 px-6 lg:px-14 bg-terra relative overflow-hidden" id="booking">
       <div
         className="absolute inset-0 opacity-[0.04]"
         style={{
@@ -24,7 +24,7 @@ export default function CTA() {
               <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-cream/60 mb-5 block">
                 {t("ctaEyebrow")}
               </span>
-              <h2 className="font-serif text-[clamp(32px,4vw,52px)] font-normal leading-[1.1] text-cream tracking-[-0.01em]">
+              <h2 className="font-serif text-[clamp(32px,4vw,52px)] font-black leading-[1.1] text-cream tracking-[-0.01em]">
                 {t("ctaHeadlineA")}
                 <br />
                 <em>{t("ctaHeadlineB")}</em>

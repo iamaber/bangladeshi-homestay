@@ -73,7 +73,7 @@ export default function HostProfilePage() {
                   Bangladesh — exact family details shared after booking review
                 </div>
 
-                <p className="font-serif text-[17px] italic text-ink2 leading-[1.75] pl-5 border-l-2 border-l-gold mb-8">
+                <p className="font-serif text-[17px] text-ink2 leading-[1.75] pl-5 border-l-2 border-l-gold mb-8">
                   &ldquo;A warm, carefully selected Bangladeshi household welcomes guests into everyday family life, shared meals, local routines, and cultural exchange.&rdquo;
                 </p>
 

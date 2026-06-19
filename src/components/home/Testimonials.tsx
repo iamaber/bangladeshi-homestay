@@ -26,7 +26,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-24 px-6 lg:px-14 bg-ink2 relative overflow-hidden">
+    <section className="py-16 px-6 lg:px-14 bg-ink2 relative overflow-hidden">
       {/* Subtle geometric texture */}
       <div
         className="absolute inset-0 opacity-[0.02]"
@@ -40,7 +40,7 @@ export default function Testimonials() {
       <div className="max-w-[1400px] mx-auto relative z-10">
         <SectionReveal>
           <span className="eyebrow">Guest Stories</span>
-          <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-normal leading-[1.12] text-cream tracking-[-0.01em]">
+          <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-bold leading-[1.12] text-cream tracking-[-0.01em]">
             What guests came
             <br />
             <em>home saying</em>
@@ -70,7 +70,7 @@ export default function Testimonials() {
                     ))}
                   </div>
                 </div>
-                <p className="font-serif text-[20px] italic text-cream/82 leading-[1.75]">
+                <p className="font-serif text-[20px] text-cream/82 leading-[1.75]">
                   &ldquo;{t.quote}&rdquo;
                 </p>
               </div>

@@ -8,7 +8,7 @@ const footerLinks = {
     { href: "/#about", labelKey: "aboutEyebrow" },
     { href: "/#how", labelKey: "navHow" },
     { href: "/#host", labelKey: "navHosts" },
-    { href: "/#packages", labelKey: "navPackages" },
+    { href: "/packages", labelKey: "navPackages" },
   ],
   support: [
     { href: "/#faq", labelKey: "navFaq" },
@@ -85,7 +85,7 @@ export default function Footer() {
               >
                 WhatsApp
               </a>
-              <span className="text-[12px] font-light text-cream/20 italic font-serif">
+              <span className="text-[12px] font-light text-cream/20 font-serif">
                 bengalihomestay.com
               </span>
             </div>
@@ -96,7 +96,7 @@ export default function Footer() {
           <span className="text-[12px] text-cream/30">
             &copy; {new Date().getFullYear()} Bengali Homestay. {t("footerRights")}
           </span>
-          <span className="text-[12px] text-cream/20 italic font-serif">
+          <span className="text-[12px] text-cream/20 font-serif">
             {t("footerPayment")}
           </span>
         </div>
