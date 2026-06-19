@@ -1,6 +1,5 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import RevealScript from "@/components/RevealScript";
 import Hero from "@/components/home/Hero";
 import Band from "@/components/home/Band";
 import About from "@/components/home/About";
@@ -16,7 +15,6 @@ export default function HomePage() {
   return (
     <>
       <Navigation />
-      <RevealScript />
       <main>
         <Hero />
         <Band />

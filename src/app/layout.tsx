@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { I18nProvider } from "@/lib/i18n";
+import I18nProvider from "@/components/I18nProvider";
 import "./globals.css";
 
 const satoshi = localFont({
@@ -15,7 +15,7 @@ const satoshi = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Bengali Homestay — Authentic Bangladeshi Homestay",
+  title: "Gutu Gasthaus — Authentic Bangladeshi Homestay",
   description:
     "Stay with a real Bangladeshi family, share their meals, join their daily life, and experience a culture that no hotel can offer.",
   keywords: [
@@ -34,7 +34,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${satoshi.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${satoshi.variable} h-full antialiased`}
+    >
       <body
         className="min-h-full flex flex-col bg-cream text-ink font-sans"
         suppressHydrationWarning

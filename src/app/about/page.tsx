@@ -19,7 +19,7 @@ export default function AboutPage() {
             <div className="mt-8 space-y-4 text-[15.5px] font-light text-ink2/80 leading-[1.9]">
               <h2 className="text-[18px] font-semibold text-ink">Our Story</h2>
               <p>
-                Bengali Homestay was born from a simple belief: the most meaningful travel experiences don&apos;t happen in hotels. They happen around kitchen tables, in family courtyards, and on evening walks through local neighbourhoods.
+                Gutu Gasthaus was born from a simple belief: the most meaningful travel experiences don&apos;t happen in hotels. They happen around kitchen tables, in family courtyards, and on evening walks through local neighbourhoods.
               </p>
               <p>
                 We created this platform to bridge the gap between curious travellers and the rich, generous culture of Bangladesh. We want the world to see what we see: a country of extraordinary warmth, stunning landscapes, and people who open their homes and hearts with remarkable ease.

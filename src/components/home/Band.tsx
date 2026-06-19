@@ -1,7 +1,7 @@
 "use client";
 
 import { Handshake, Plane, Utensils } from "lucide-react";
-import { useI18n } from "@/lib/i18n";
+import { useI18n } from "@/lib/useI18n";
 
 export default function Band() {
   const { t } = useI18n();

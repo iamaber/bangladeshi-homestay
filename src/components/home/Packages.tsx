@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import SectionReveal from "@/components/SectionReveal";
-import { useI18n } from "@/lib/i18n";
+import { useI18n } from "@/lib/useI18n";
 
 const features = [
   { section: "Included in all packages", items: [

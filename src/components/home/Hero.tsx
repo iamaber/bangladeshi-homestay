@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { useI18n } from "@/lib/i18n";
+import { useI18n } from "@/lib/useI18n";
 import { withBasePath } from "@/lib/paths";
 
 export default function Hero() {

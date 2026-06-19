@@ -1,0 +1,47 @@
+<svg width="760" height="200" viewBox="0 0 760 200" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logoTitle logoDesc">
+  <title id="logoTitle">Gutu Gasthaus</title>
+  <desc id="logoDesc">A refined guesthouse logo with an arched house emblem and Gutu Gasthaus wordmark.</desc>
+  <defs>
+    <style>
+      .cream{fill:#f7f3ec}
+      .gold{fill:#c49435}
+      .gold-stroke{stroke:#c49435}
+      .cream-stroke{stroke:#f7f3ec}
+      .green{fill:#173524}
+      .line{stroke-linecap:round;stroke-linejoin:round}
+      .brand{font-family:Lora, Georgia, serif;font-size:92px;font-weight:400;letter-spacing:.01em}
+      .sub{font-family:"Plus Jakarta Sans", Arial, sans-serif;font-size:30px;font-weight:700;letter-spacing:.42em}
+    </style>
+  </defs>
+
+  <g transform="translate(18 10) scale(1.08)">
+    <path d="M83 5C39.9 5 5 39.9 5 83v78h156V83C161 39.9 126.1 5 83 5Z" class="gold-stroke line" stroke-width="3.4"/>
+    <path d="M83 17C46.5 17 17 46.5 17 83v66h132V83c0-36.5-29.5-66-66-66Z" class="gold-stroke line" stroke-width="2.2" opacity=".95"/>
+    <path d="M38 82 83 43l45 39" class="cream-stroke line" stroke-width="3.5"/>
+    <path d="M51 80v61h64V80" class="cream-stroke line" stroke-width="3.5"/>
+    <path d="M64 84h38v57H64V84Z" class="cream-stroke line" stroke-width="2.8"/>
+    <path d="M83 75c11 0 20 9 20 20H63c0-11 9-20 20-20Z" class="cream-stroke line" stroke-width="2.8"/>
+    <path d="M83 75v20M69 88h28" class="gold-stroke line" stroke-width="2.1"/>
+    <path d="M73 96h20v45H73V96Z" class="green"/>
+    <path d="M78 101h4v32M87 101h4v32M76 134h15" class="cream-stroke line" stroke-width="1" opacity=".65"/>
+    <path d="M83 96v45" class="cream-stroke line" stroke-width="1.2" opacity=".75"/>
+    <circle cx="88" cy="119" r="1.2" class="gold"/>
+    <circle cx="83" cy="58" r="4" class="gold"/>
+    <path d="M69 58c3-7 8-10 14-10s11 3 14 10" class="gold-stroke line" stroke-width="1.5" opacity=".75"/>
+    <path d="M41 129c-12 1-22 8-27 20 19 3 32-2 39-14M125 129c12 1 22 8 27 20-19 3-32-2-39-14" class="green"/>
+    <path d="M47 130h8v12h-8zM111 130h8v12h-8z" class="gold"/>
+    <path d="M51 129c-6-8-4-15 3-20M115 129c6-8 4-15-3-20M54 119c6 1 9 4 10 10M112 119c-6 1-9 4-10 10" class="cream-stroke line" stroke-width="1.8"/>
+    <path d="M47 116c-8-14-9-30-2-47M119 116c8-14 9-30 2-47" class="cream-stroke line" stroke-width="2.8"/>
+    <path d="M45 78c-9 2-13 8-14 17 8-1 13-6 14-17ZM51 65c-8-1-14 3-18 11 8 2 14-1 18-11ZM118 78c9 2 13 8 14 17-8-1-13-6-14-17ZM112 65c8-1 14 3 18 11-8 2-14-1-18-11Z" class="cream"/>
+    <path d="M83 26 87 39l13 4-13 4-4 13-4-13-13-4 13-4 4-13Z" class="gold"/>
+    <path d="M53 151c19-7 42-7 61 0" class="gold-stroke line" stroke-width="2" opacity=".85"/>
+    <path d="M62 146h10M77 144h12M94 146h10M66 154h9M82 153h11M99 154h8" class="cream-stroke line" stroke-width="1.4" opacity=".8"/>
+  </g>
+
+  <g transform="translate(225 43)">
+    <text x="0" y="68" class="brand cream">Gutu</text>
+    <text x="3" y="123" class="sub gold">GASTHAUS</text>
+    <path d="M221 86c5 5 8 12 8 20-13-2-21-9-24-21 7 0 12 1 16 1Z" class="gold"/>
+    <path d="M202 86c-5 5-8 12-8 20 13-2 21-9 24-21-7 0-12 1-16 1Z" class="gold"/>
+  </g>
+</svg>

@@ -1,9 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useI18n, type Lang } from "@/lib/i18n";
+import type { Lang } from "@/lib/i18n-data";
+import { useI18n } from "@/lib/useI18n";
 import { withBasePath } from "@/lib/paths";
 
 type NavChild = { href: string; label: string };
@@ -16,15 +19,22 @@ export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileGroup, setMobileGroup] = useState<string | null>(null);
+  const pathname = usePathname();
   const { lang, setLang, t } = useI18n();
   const reduceMotion = useReducedMotion();
   const langs: Lang[] = ["EN", "DE", "FR", "IT"];
+  const isHome = pathname === "/";
+  const darkNavigation = scrolled || !isHome;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
+    const frame = window.requestAnimationFrame(onScroll);
     window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [pathname]);
 
   const navItems: NavItem[] = [
     {
@@ -32,8 +42,8 @@ export default function Navigation() {
       label: t("navPackages"),
       items: [
         { href: withBasePath("/packages"), label: t("navStudentPackages") },
-        { href: withBasePath("/packages#includes"), label: t("navIncludes") },
-        { href: withBasePath("/#payment"), label: t("navPricing") },
+        { href: withBasePath("/packages#experience"), label: t("navIncludes") },
+        { href: withBasePath("/contact"), label: t("navPricing") },
       ],
     },
     {
@@ -57,13 +67,26 @@ export default function Navigation() {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-6 lg:px-14 transition-all duration-300 ${
-          scrolled
+          darkNavigation
             ? "bg-[#173524f5] backdrop-blur-sm border-b border-white/8"
             : "bg-transparent border-b border-transparent"
         }`}
       >
-        <Link href="/" className="font-semibold text-[18px] text-cream tracking-[0.01em] no-underline hover:opacity-80 transition-opacity">
-          {t("brandFirst")} <span className="text-gold-warm">{t("brandSecond")}</span>
+        <Link
+          href={withBasePath("/")}
+          scroll
+          aria-label="Gutu Gasthaus home"
+          onClick={() => setScrolled(false)}
+          className="no-underline hover:opacity-80 transition-opacity"
+        >
+          <Image
+            src={withBasePath("/logo.svg")}
+            alt="Gutu Gasthaus"
+            width={760}
+            height={200}
+            priority
+            className="block h-10 w-auto"
+          />
         </Link>
 
         <div className="hidden lg:flex items-center gap-9">

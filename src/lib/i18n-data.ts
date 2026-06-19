@@ -1,17 +1,6 @@
-"use client";
-
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useSyncExternalStore,
-  type ReactNode,
-} from "react";
-
 export type Lang = "EN" | "DE" | "FR" | "IT";
 
-type TranslationKey =
+export type TranslationKey =
   | "brandFirst"
   | "brandSecond"
   | "navHow"
@@ -68,10 +57,10 @@ type TranslationKey =
   | "footerRights"
   | "footerPayment";
 
-const translations: Record<Lang, Record<TranslationKey, string>> = {
+export const translations: Record<Lang, Record<TranslationKey, string>> = {
   EN: {
-    brandFirst: "Bengali",
-    brandSecond: "Homestay",
+    brandFirst: "Gutu",
+    brandSecond: "Gasthaus",
     navHow: "How It Works",
     navPackages: "Packages",
     navHosts: "Host Families",
@@ -79,7 +68,7 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     navExperience: "Experience",
     navStudentPackages: "Student Packages",
     navIncludes: "What's Included",
-    navPricing: "Pricing & Payment",
+    navPricing: "Plan Your Stay",
     navCulturalLife: "Cultural Life",
     bookNow: "Book Now",
     heroHeadlineA: "Live Bangladesh.",
@@ -101,7 +90,7 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     aboutHeadlineA: "A Different Kind",
     aboutHeadlineB: "of Travel",
     aboutP1:
-      "Bangladesh isn't just a destination. It's an experience that stays with you. Bengali Homestay connects you with warm, welcoming host families across Bangladesh for a 2-week immersion like no other.",
+      "Bangladesh isn't just a destination. It's an experience that stays with you. Gutu Gasthaus connects you with warm, welcoming host families across Bangladesh for a 2-week immersion like no other.",
     aboutP2:
       "Wake up to home-cooked breakfasts, explore local markets, learn to cook traditional recipes, and build friendships that last a lifetime.",
     aboutP3: "This isn't tourism. This is belonging.",
@@ -138,8 +127,8 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     footerPayment: "Prices in CHF · Payment by invoice",
   },
   DE: {
-    brandFirst: "Bengali",
-    brandSecond: "Homestay",
+    brandFirst: "Gutu",
+    brandSecond: "Gasthaus",
     navHow: "So funktioniert es",
     navPackages: "Pakete",
     navHosts: "Gastfamilien",
@@ -147,7 +136,7 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     navExperience: "Erlebnis",
     navStudentPackages: "Studentenpakete",
     navIncludes: "Leistungen",
-    navPricing: "Preise & Zahlung",
+    navPricing: "Aufenthalt planen",
     navCulturalLife: "Kulturelles Leben",
     bookNow: "Jetzt buchen",
     heroHeadlineA: "Lebe Bangladesch.",
@@ -169,7 +158,7 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     aboutHeadlineA: "Eine andere Art",
     aboutHeadlineB: "zu reisen",
     aboutP1:
-      "Bangladesch ist nicht nur ein Reiseziel. Es ist eine Erfahrung, die bleibt. Bengali Homestay verbindet dich mit herzlichen Gastfamilien für eine zweiwöchige Immersion.",
+      "Bangladesch ist nicht nur ein Reiseziel. Es ist eine Erfahrung, die bleibt. Gutu Gasthaus verbindet dich mit herzlichen Gastfamilien für eine zweiwöchige Immersion.",
     aboutP2:
       "Wache mit hausgemachtem Frühstück auf, besuche lokale Märkte, lerne traditionelle Rezepte und knüpfe Freundschaften fürs Leben.",
     aboutP3: "Das ist kein Tourismus. Das ist Zugehörigkeit.",
@@ -206,8 +195,8 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     footerPayment: "Preise in CHF · Zahlung per Rechnung",
   },
   FR: {
-    brandFirst: "Bengali",
-    brandSecond: "Homestay",
+    brandFirst: "Gutu",
+    brandSecond: "Gasthaus",
     navHow: "Comment ça marche",
     navPackages: "Forfaits",
     navHosts: "Familles d'accueil",
@@ -215,7 +204,7 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     navExperience: "Expérience",
     navStudentPackages: "Forfaits étudiants",
     navIncludes: "Ce qui est inclus",
-    navPricing: "Prix & paiement",
+    navPricing: "Planifier le séjour",
     navCulturalLife: "Vie culturelle",
     bookNow: "Réserver",
     heroHeadlineA: "Vivez le Bangladesh.",
@@ -237,7 +226,7 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     aboutHeadlineA: "Une autre façon",
     aboutHeadlineB: "de voyager",
     aboutP1:
-      "Le Bangladesh n'est pas seulement une destination. C'est une expérience qui reste avec vous. Bengali Homestay vous relie à des familles chaleureuses pour une immersion de deux semaines.",
+      "Le Bangladesh n'est pas seulement une destination. C'est une expérience qui reste avec vous. Gutu Gasthaus vous relie à des familles chaleureuses pour une immersion de deux semaines.",
     aboutP2:
       "Réveillez-vous avec des petits-déjeuners maison, explorez les marchés locaux, apprenez des recettes traditionnelles et créez des amitiés durables.",
     aboutP3: "Ce n'est pas du tourisme. C'est un sentiment d'appartenance.",
@@ -274,8 +263,8 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     footerPayment: "Prix en CHF · Paiement par facture",
   },
   IT: {
-    brandFirst: "Bengali",
-    brandSecond: "Homestay",
+    brandFirst: "Gutu",
+    brandSecond: "Gasthaus",
     navHow: "Come funziona",
     navPackages: "Pacchetti",
     navHosts: "Famiglie ospitanti",
@@ -283,7 +272,7 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     navExperience: "Esperienza",
     navStudentPackages: "Pacchetti studenti",
     navIncludes: "Cosa è incluso",
-    navPricing: "Prezzi & pagamento",
+    navPricing: "Pianifica il soggiorno",
     navCulturalLife: "Vita culturale",
     bookNow: "Prenota ora",
     heroHeadlineA: "Vivi il Bangladesh.",
@@ -305,7 +294,7 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     aboutHeadlineA: "Un modo diverso",
     aboutHeadlineB: "di viaggiare",
     aboutP1:
-      "Il Bangladesh non è solo una destinazione. È un'esperienza che resta con te. Bengali Homestay ti collega a famiglie accoglienti per un'immersione di due settimane.",
+      "Il Bangladesh non è solo una destinazione. È un'esperienza che resta con te. Gutu Gasthaus ti collega a famiglie accoglienti per un'immersione di due settimane.",
     aboutP2:
       "Svegliati con colazioni fatte in casa, esplora mercati locali, impara ricette tradizionali e crea amicizie che durano.",
     aboutP3: "Questo non è turismo. È appartenenza.",
@@ -342,66 +331,3 @@ const translations: Record<Lang, Record<TranslationKey, string>> = {
     footerPayment: "Prezzi in CHF · Pagamento tramite fattura",
   },
 };
-
-type I18nContextValue = {
-  lang: Lang;
-  setLang: (lang: Lang) => void;
-  t: (key: TranslationKey) => string;
-};
-
-const I18nContext = createContext<I18nContextValue | null>(null);
-
-const LANG_STORAGE_KEY = "bh-lang";
-const LANG_CHANGE_EVENT = "bh-lang-change";
-
-function isLang(value: string | null): value is Lang {
-  return !!value && value in translations;
-}
-
-function getStoredLang(): Lang {
-  if (typeof window === "undefined") return "EN";
-  const saved = window.localStorage.getItem(LANG_STORAGE_KEY);
-  return isLang(saved) ? saved : "EN";
-}
-
-function subscribeLang(callback: () => void) {
-  window.addEventListener("storage", callback);
-  window.addEventListener(LANG_CHANGE_EVENT, callback);
-
-  return () => {
-    window.removeEventListener("storage", callback);
-    window.removeEventListener(LANG_CHANGE_EVENT, callback);
-  };
-}
-
-export function I18nProvider({ children }: { children: ReactNode }) {
-  const lang = useSyncExternalStore<Lang>(subscribeLang, getStoredLang, () => "EN");
-
-  useEffect(() => {
-    document.documentElement.lang = lang.toLowerCase();
-  }, [lang]);
-
-  const setLang = (nextLang: Lang) => {
-    window.localStorage.setItem(LANG_STORAGE_KEY, nextLang);
-    window.dispatchEvent(new Event(LANG_CHANGE_EVENT));
-  };
-
-  const value = useMemo<I18nContextValue>(
-    () => ({
-      lang,
-      setLang,
-      t: (key) => translations[lang][key],
-    }),
-    [lang],
-  );
-
-  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
-}
-
-export function useI18n() {
-  const context = useContext(I18nContext);
-  if (!context) {
-    throw new Error("useI18n must be used inside I18nProvider");
-  }
-  return context;
-}

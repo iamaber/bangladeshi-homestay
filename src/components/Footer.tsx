@@ -1,6 +1,7 @@
 "use client";
 
-import { useI18n } from "@/lib/i18n";
+import Image from "next/image";
+import { useI18n } from "@/lib/useI18n";
 import { withBasePath } from "@/lib/paths";
 
 const footerLinks = {
@@ -26,9 +27,13 @@ export default function Footer() {
       <div className="max-w-[1400px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 pb-14 border-b border-white/7">
           <div className="lg:col-span-1">
-            <div className="font-serif text-[20px] text-cream tracking-[0.01em] mb-4">
-              Bengali <span className="text-gold-warm">Homestay</span>
-            </div>
+            <Image
+              src={withBasePath("/logo.svg")}
+              alt="Gutu Gasthaus"
+              width={760}
+              height={200}
+              className="block h-12 w-auto mb-4"
+            />
             <p className="text-[13.5px] font-light text-cream/40 leading-relaxed max-w-[240px]">
               {t("footerDesc")}
             </p>
@@ -74,10 +79,10 @@ export default function Footer() {
             </h5>
             <div className="flex flex-col gap-2.5">
               <a
-                href="mailto:hello@bengalihomestay.com"
+                href="mailto:hello@gutugasthaus.com"
                 className="text-[13px] font-light text-cream/45 no-underline hover:text-cream transition-colors"
               >
-                hello@bengalihomestay.com
+                hello@gutugasthaus.com
               </a>
               <a
                 href="#"
@@ -86,7 +91,7 @@ export default function Footer() {
                 WhatsApp
               </a>
               <span className="text-[12px] font-light text-cream/20 font-serif">
-                bengalihomestay.com
+                gutugasthaus.com
               </span>
             </div>
           </div>
@@ -94,7 +99,7 @@ export default function Footer() {
 
         <div className="pt-7 flex flex-col md:flex-row justify-between items-center gap-4">
           <span className="text-[12px] text-cream/30">
-            &copy; {new Date().getFullYear()} Bengali Homestay. {t("footerRights")}
+            &copy; {new Date().getFullYear()} Gutu Gasthaus. {t("footerRights")}
           </span>
           <span className="text-[12px] text-cream/20 font-serif">
             {t("footerPayment")}

@@ -1,7 +1,7 @@
 "use client";
 
 import SectionReveal from "@/components/SectionReveal";
-import { useI18n } from "@/lib/i18n";
+import { useI18n } from "@/lib/useI18n";
 
 export default function HowItWorks() {
   const { t } = useI18n();

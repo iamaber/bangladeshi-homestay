@@ -1,12 +1,6 @@
 import SectionReveal from "@/components/SectionReveal";
 import { withBasePath } from "@/lib/paths";
 
-const months = [
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-];
-const openMonths = ["Feb", "Mar", "May", "Jun", "Aug", "Sep", "Nov", "Dec"];
-
 export default function HostFamily() {
   return (
     <section className="py-16 px-6 lg:px-14" id="host">
@@ -83,25 +77,6 @@ export default function HostFamily() {
                 <span className="text-[13.5px] font-light text-ink2">
                   Private room, A/C, WiFi, rooftop terrace
                 </span>
-              </div>
-              <div className="flex justify-between items-baseline gap-4 py-3">
-                <span className="text-[11px] font-semibold tracking-[0.14em] uppercase text-muted">
-                  Availability 2025–2026
-                </span>
-                <div className="flex flex-wrap gap-1.5 justify-end">
-                  {months.map((m) => (
-                    <span
-                      key={m}
-                      className={`text-[11px] font-medium px-2 py-0.5 border transition-colors ${
-                        openMonths.includes(m)
-                          ? "text-green-soft border-green-soft/40 hover:bg-green-soft/5 cursor-default"
-                          : "text-muted border-rule"
-                      }`}
-                    >
-                      {m}
-                    </span>
-                  ))}
-                </div>
               </div>
 
               <div className="mt-8">

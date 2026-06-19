@@ -1,7 +1,7 @@
 "use client";
 
 import SectionReveal from "@/components/SectionReveal";
-import { useI18n } from "@/lib/i18n";
+import { useI18n } from "@/lib/useI18n";
 import { withBasePath } from "@/lib/paths";
 
 export default function About() {
