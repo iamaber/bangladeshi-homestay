@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { withBasePath } from "@/lib/paths";
+import { assetPath } from "@/lib/paths";
 
 const tiles = [
   {
@@ -81,7 +81,7 @@ export default function Gallery() {
               className={`img-zoom rounded-sm overflow-hidden aspect-square md:aspect-auto ${tile.span}`}
             >
               <img
-                src={withBasePath(tile.src)}
+                src={assetPath(tile.src)}
                 alt={tile.alt}
                 loading="lazy"
                 className="w-full h-full object-cover"

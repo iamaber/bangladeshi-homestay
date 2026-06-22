@@ -3,19 +3,25 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useState } from "react";
+import { contactEmail, createMailtoUrl } from "@/lib/email";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitting(true);
-    // Simulate async submission
-    setTimeout(() => {
-      setSubmitting(false);
-      setSubmitted(true);
-    }, 1200);
+    window.location.href = createMailtoUrl(
+      `${String(data.get("subject") || "Website enquiry")}: ${String(data.get("firstName") || "")} ${String(data.get("lastName") || "")}`.trim(),
+      [
+        { label: "First name", value: data.get("firstName") },
+        { label: "Last name", value: data.get("lastName") },
+        { label: "Email", value: data.get("email") },
+        { label: "Subject", value: data.get("subject") },
+        { label: "Message", value: data.get("message") },
+      ],
+    );
+    setSubmitted(true);
   };
 
   return (
@@ -45,8 +51,10 @@ export default function ContactPage() {
                     role="status"
                     aria-live="polite"
                   >
-                    <div className="font-serif text-[20px] text-ink mb-2">Message sent!</div>
-                    <p className="text-[14px] font-light text-muted">We&apos;ll get back to you within 24 hours.</p>
+                    <div className="font-serif text-[20px] text-ink mb-2">Email draft opened</div>
+                    <p className="text-[14px] font-light text-muted">
+                      Send the prepared message to {contactEmail}. We&apos;ll reply within 24 hours.
+                    </p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5" aria-label="Contact form">
@@ -81,18 +89,9 @@ export default function ContactPage() {
                     </div>
                     <button
                       type="submit"
-                      disabled={submitting}
-                      aria-disabled={submitting}
                       className="btn-fill-sm"
                     >
-                      {submitting ? (
-                        <span className="inline-flex items-center gap-2">
-                          <span className="inline-block w-3.5 h-3.5 border-2 border-cream/30 border-t-cream rounded-full animate-spin" />
-                          Sending...
-                        </span>
-                      ) : (
-                        "Send Message"
-                      )}
+                      Email Message
                     </button>
                   </form>
                 )}
@@ -110,7 +109,12 @@ export default function ContactPage() {
                   <div className="space-y-4 pt-4 border-t border-rule">
                     <div>
                       <div className="text-[11px] font-semibold tracking-[0.14em] uppercase text-muted mb-1">Email</div>
-                      <div className="text-[14px] font-light text-ink2">hello@bengalliving.com</div>
+                      <a
+                        href={`mailto:${contactEmail}`}
+                        className="text-[14px] font-light text-ink2 hover:text-green transition-colors"
+                      >
+                        {contactEmail}
+                      </a>
                     </div>
                     <div>
                       <div className="text-[11px] font-semibold tracking-[0.14em] uppercase text-muted mb-1">Response time</div>

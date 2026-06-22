@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const steps = [
   { num: "1", title: "Choose your package", desc: "Pick Standard or Premium, with or without a flight ticket included." },
-  { num: "2", title: "Submit your booking", desc: "Fill out a short form and receive your confirmation and payment invoice by email within 24 hours." },
+  { num: "2", title: "Email your booking request", desc: "Fill out the booking form, send the prepared email, and receive payment details after review." },
   { num: "3", title: "Arrive & immerse yourself", desc: "Your host family will be at the airport to welcome you. From there, your Bengali adventure begins." },
 ];
 

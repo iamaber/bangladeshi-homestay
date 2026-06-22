@@ -1,13 +1,9 @@
-export const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
-export function withBasePath(path: string) {
-  if (!basePath || path.startsWith("http") || path.startsWith("mailto:")) {
-    return path;
-  }
-
-  if (path.startsWith("#")) {
-    return path;
-  }
-
+/**
+ * Prefixes files from /public for deployments below a repository path.
+ * Internal navigation must use next/link with an unprefixed app route.
+ */
+export function assetPath(path: string) {
   return `${basePath}${path}`;
 }

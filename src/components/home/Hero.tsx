@@ -2,8 +2,9 @@
 
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import Link from "next/link";
 import { useI18n } from "@/lib/useI18n";
-import { withBasePath } from "@/lib/paths";
+import { assetPath } from "@/lib/paths";
 
 export default function Hero() {
   const { t } = useI18n();
@@ -33,7 +34,7 @@ export default function Hero() {
       {/* Background image with scroll-linked parallax */}
       <motion.div className="absolute inset-0" style={{ y: reduceMotion ? 0 : bgY }}>
         <img
-          src={withBasePath("/images/river-boat-sunset.jpeg")}
+          src={assetPath("/images/river-boat-sunset.jpeg")}
           alt="Boat on a Bangladeshi river at sunset"
           className="w-full h-[118%] object-cover scale-105"
         />
@@ -78,9 +79,9 @@ export default function Hero() {
         </motion.p>
 
         <motion.div variants={fadeUp} className="flex gap-4 items-center">
-          <a href={withBasePath("/packages")} className="btn-fill">
+          <Link href="/packages" className="btn-fill">
             {t("explorePackages")}
-          </a>
+          </Link>
           <a href="#how" className="btn-line">
             {t("howItWorks")}
           </a>

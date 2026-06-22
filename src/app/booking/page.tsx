@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { contactEmail, createMailtoUrl } from "@/lib/email";
 
 const prices = {
   standard: { label: "Standard", withoutFlight: 2700, withFlight: 4200 },
@@ -13,7 +14,6 @@ type PackageKey = keyof typeof prices;
 
 export default function BookingPage() {
   const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
   const [packageKey, setPackageKey] = useState<PackageKey>("standard");
   const [includeFlight, setIncludeFlight] = useState(false);
 
@@ -24,13 +24,25 @@ export default function BookingPage() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSubmitting(true);
+    const data = new FormData(event.currentTarget);
+    const subject = `Booking request: ${prices[packageKey].label} package`;
 
-    window.setTimeout(() => {
-      setSubmitting(false);
-      setSubmitted(true);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 900);
+    window.location.href = createMailtoUrl(subject, [
+      { label: "First name", value: data.get("firstName") },
+      { label: "Last name", value: data.get("lastName") },
+      { label: "Email", value: data.get("email") },
+      { label: "Phone", value: data.get("phone") },
+      { label: "Country", value: data.get("country") },
+      { label: "Guests", value: data.get("guests") },
+      { label: "Package", value: prices[packageKey].label },
+      { label: "Flight ticket", value: includeFlight ? "Included" : "Not included" },
+      { label: "Estimated total", value: `CHF ${total.toLocaleString("en-US")}` },
+      { label: "Preferred arrival", value: data.get("arrivalDate") },
+      { label: "Preferred departure", value: data.get("departureDate") },
+      { label: "Notes", value: data.get("notes") },
+    ]);
+    setSubmitted(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -65,12 +77,12 @@ export default function BookingPage() {
             {submitted ? (
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.8fr] gap-12 lg:gap-20 items-start">
                 <div className="py-12 border-y border-rule">
-                  <span className="eyebrow">Request Submitted</span>
+                  <span className="eyebrow">Email Draft Opened</span>
                   <h2 className="font-serif text-[clamp(30px,3vw,44px)] text-ink leading-[1.14] mb-5">
-                    Your booking request has been received.
+                    Send the prepared email to complete your request.
                   </h2>
                   <p className="text-[15px] font-light text-muted leading-[1.85] max-w-620px">
-                    You will receive a confirmation email with the Swiss QR payment invoice within 24 hours. Once payment is received, the booking is confirmed and the pre-arrival guide will be sent.
+                    Your email app should contain the booking details. Send it to {contactEmail}. We will review it and reply with the payment invoice. Your booking is confirmed only after payment is received.
                   </p>
                 </div>
                 <div className="bg-green text-cream p-8">
@@ -138,6 +150,7 @@ export default function BookingPage() {
                     <label className="mt-5 flex items-start gap-3 cursor-pointer">
                       <input
                         type="checkbox"
+                        name="includeFlight"
                         checked={includeFlight}
                         onChange={(event) => setIncludeFlight(event.target.checked)}
                         className="mt-1 h-4 w-4 accent-green"
@@ -205,8 +218,8 @@ export default function BookingPage() {
                   <p className="text-[12.5px] font-light text-cream/55 leading-[1.7] mt-6">
                     Payment is not collected on this page. A Swiss QR payment invoice is sent by email after the booking request is reviewed.
                   </p>
-                  <button type="submit" disabled={submitting} className="btn-cream w-full mt-8 text-center">
-                    {submitting ? "Submitting..." : "Submit Booking Request"}
+                  <button type="submit" className="btn-cream w-full mt-8 text-center">
+                    Email Booking Request
                   </button>
                 </aside>
               </form>

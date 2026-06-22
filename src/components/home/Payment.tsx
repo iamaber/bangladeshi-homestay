@@ -1,8 +1,9 @@
 import SectionReveal from "@/components/SectionReveal";
+import Link from "next/link";
 
 const paySteps = [
   { num: "1.", title: "Submit Booking", desc: "Choose your dates, package, and complete the booking form." },
-  { num: "2.", title: "Receive Payment Details", desc: "A payment invoice is sent to your email address automatically." },
+  { num: "2.", title: "Receive Payment Details", desc: "A payment invoice is sent to your email after the request is reviewed." },
   { num: "3.", title: "Complete Payment", desc: "Use the invoice details to complete the payment from your bank." },
   { num: "4.", title: "Confirmed", desc: "We verify payment and send your welcome pack & pre-arrival guide." },
 ];
@@ -30,6 +31,14 @@ export default function Payment() {
               <p className="text-[15px] font-light text-ink2/80 leading-[1.9]">
                 After booking, you&apos;ll receive a payment invoice by email with the details needed to complete your transfer. Your booking is reviewed and confirmed once payment is received.
               </p>
+              <div className="flex flex-wrap gap-4 mt-8">
+                <Link href="/booking" className="btn-fill-sm">
+                  Start Booking
+                </Link>
+                <Link href="/contact" className="btn-line-sm">
+                  Payment Questions
+                </Link>
+              </div>
 
               <div className="mt-10 pt-8 border-t border-rule">
                 <div className="text-[11px] font-semibold tracking-[0.16em] uppercase text-muted mb-5">
@@ -132,12 +141,12 @@ export default function Payment() {
                   We&apos;re happy to help you find new dates with the same host family
                   where possible.
                 </p>
-                <a
-                  href="#contact"
+                <Link
+                  href="/contact"
                   className="text-[12px] font-semibold tracking-[0.1em] uppercase text-green no-underline border-b border-green pb-0.5"
                 >
                   Contact our team →
-                </a>
+                </Link>
               </div>
             </div>
           </div>

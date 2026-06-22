@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { withBasePath } from "@/lib/paths";
+import { assetPath } from "@/lib/paths";
 
 export const metadata: Metadata = {
   title: "Student Experience — Gutu Gasthaus",
@@ -58,14 +58,14 @@ export default function PackagesPage() {
                 the country through people, food, and shared experience.
               </p>
               <div className="mt-9">
-                <Link href={withBasePath("/contact")} className="btn-fill">
+                <Link href="/contact" className="btn-fill">
                   Plan Your Stay
                 </Link>
               </div>
             </div>
             <div className="relative min-h-420px lg:min-h-full">
               <Image
-                src={withBasePath("/images/family-living-dining-room.jpeg")}
+                src={assetPath("/images/family-living-dining-room.jpeg")}
                 alt="A welcoming Bangladeshi family home prepared for shared daily life"
                 fill
                 priority
@@ -123,7 +123,7 @@ export default function PackagesPage() {
                 tailored proposal.
               </p>
             </div>
-            <Link href={withBasePath("/contact")} className="btn-cream whitespace-nowrap">
+            <Link href="/contact" className="btn-cream whitespace-nowrap">
               Contact Our Team
             </Link>
           </div>

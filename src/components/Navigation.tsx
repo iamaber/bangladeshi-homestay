@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { Lang } from "@/lib/i18n-data";
 import { useI18n } from "@/lib/useI18n";
-import { withBasePath } from "@/lib/paths";
+import { assetPath } from "@/lib/paths";
 
 type NavChild = { href: string; label: string };
 type NavItem =
@@ -41,21 +41,21 @@ export default function Navigation() {
       type: "group",
       label: t("navPackages"),
       items: [
-        { href: withBasePath("/packages"), label: t("navStudentPackages") },
-        { href: withBasePath("/packages#experience"), label: t("navIncludes") },
-        { href: withBasePath("/contact"), label: t("navPricing") },
+        { href: "/packages", label: t("navStudentPackages") },
+        { href: "/packages#experience", label: t("navIncludes") },
+        { href: "/contact", label: t("navPricing") },
       ],
     },
     {
       type: "group",
       label: t("navExperience"),
       items: [
-        { href: withBasePath("/#how"), label: t("navHow") },
-        { href: withBasePath("/#host"), label: t("navHosts") },
-        { href: withBasePath("/#about"), label: t("navCulturalLife") },
+        { href: "/#how", label: t("navHow") },
+        { href: "/#host", label: t("navHosts") },
+        { href: "/#about", label: t("navCulturalLife") },
       ],
     },
-    { type: "link", href: withBasePath("/#faq"), label: t("navFaq") },
+    { type: "link", href: "/#faq", label: t("navFaq") },
   ];
 
   const dropdownVariants = {
@@ -73,14 +73,14 @@ export default function Navigation() {
         }`}
       >
         <Link
-          href={withBasePath("/")}
+          href="/"
           scroll
           aria-label="Gutu Gasthaus home"
           onClick={() => setScrolled(false)}
           className="no-underline hover:opacity-80 transition-opacity"
         >
           <Image
-            src={withBasePath("/logo.svg")}
+            src={assetPath("/logo.svg")}
             alt="Gutu Gasthaus"
             width={760}
             height={200}
@@ -92,13 +92,13 @@ export default function Navigation() {
         <div className="hidden lg:flex items-center gap-9">
           {navItems.map((item) =>
             item.type === "link" ? (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
                 className="text-[12.5px] font-medium tracking-[0.07em] uppercase text-cream/65 no-underline hover:text-cream transition-colors"
               >
                 {item.label}
-              </a>
+              </Link>
             ) : (
               <div
                 key={item.label}
@@ -143,14 +143,14 @@ export default function Navigation() {
                     >
                       <div className="min-w-220px bg-[#173524f5] backdrop-blur-sm border border-white/10 py-2 shadow-[0_18px_40px_rgba(0,0,0,0.35)]">
                         {item.items.map((child) => (
-                          <a
+                          <Link
                             key={child.href}
                             href={child.href}
                             onClick={() => setOpenGroup(null)}
                             className="block px-5 py-2.5 text-[12.5px] font-medium tracking-[0.04em] text-cream/65 no-underline hover:text-cream hover:bg-white/5 transition-colors"
                           >
                             {child.label}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </motion.div>
@@ -175,12 +175,12 @@ export default function Navigation() {
               </button>
             ))}
           </div>
-          <a
-            href={withBasePath("/booking")}
+          <Link
+            href="/booking"
             className="font-sans text-[12px] font-semibold tracking-[0.1em] uppercase bg-transparent border border-cream/35 text-cream px-[22px] py-2 cursor-pointer transition-all hover:bg-gold-warm hover:border-gold-warm hover:text-ink no-underline"
           >
             {t("bookNow")}
-          </a>
+          </Link>
         </div>
 
         <button
@@ -210,14 +210,14 @@ export default function Navigation() {
             <div className="flex flex-col gap-2">
               {navItems.map((item) =>
                 item.type === "link" ? (
-                  <a
+                  <Link
                     key={item.label}
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
                     className="font-serif text-2xl text-cream/80 hover:text-cream transition-colors no-underline py-2"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 ) : (
                   <div key={item.label} className="border-b border-white/8 pb-2">
                     <button
@@ -253,14 +253,14 @@ export default function Navigation() {
                         >
                           <div className="flex flex-col gap-1 pl-4 pt-1 pb-2">
                             {item.items.map((child) => (
-                              <a
+                              <Link
                                 key={child.href}
                                 href={child.href}
                                 onClick={() => setMobileOpen(false)}
                                 className="text-[15px] tracking-[0.03em] text-cream/55 hover:text-cream transition-colors no-underline py-1.5"
                               >
                                 {child.label}
-                              </a>
+                              </Link>
                             ))}
                           </div>
                         </motion.div>
@@ -282,13 +282,13 @@ export default function Navigation() {
                   </button>
                 ))}
               </div>
-              <a
-                href={withBasePath("/booking")}
+              <Link
+                href="/booking"
                 onClick={() => setMobileOpen(false)}
                 className="btn-fill text-center mt-4"
               >
                 {t("bookNow")}
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}

@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useI18n } from "@/lib/useI18n";
-import { withBasePath } from "@/lib/paths";
+import { assetPath } from "@/lib/paths";
 
 const footerLinks = {
   experience: [
@@ -13,7 +14,7 @@ const footerLinks = {
   ],
   support: [
     { href: "/#faq", labelKey: "navFaq" },
-    { href: "/#contact", labelKey: "footerContact" },
+    { href: "/contact", labelKey: "footerContact" },
     { href: "/terms", label: "Terms & Conditions" },
     { href: "/privacy", label: "Privacy Policy" },
   ],
@@ -28,7 +29,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 pb-14 border-b border-white/7">
           <div className="lg:col-span-1">
             <Image
-              src={withBasePath("/logo.svg")}
+              src={assetPath("/logo.svg")}
               alt="Gutu Gasthaus"
               width={760}
               height={200}
@@ -45,13 +46,13 @@ export default function Footer() {
             </h5>
             <div className="flex flex-col gap-2.5">
               {footerLinks.experience.map((link) => (
-                <a
+                <Link
                   key={link.href}
-                href={withBasePath(link.href)}
+                  href={link.href}
                   className="text-[13px] font-light text-cream/45 no-underline hover:text-cream transition-colors"
                 >
                   {t(link.labelKey)}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -62,13 +63,13 @@ export default function Footer() {
             </h5>
             <div className="flex flex-col gap-2.5">
               {footerLinks.support.map((link) => (
-                <a
+                <Link
                   key={link.href}
-                  href={withBasePath(link.href)}
+                  href={link.href}
                   className="text-[13px] font-light text-cream/45 no-underline hover:text-cream transition-colors"
                 >
                   {"labelKey" in link ? t(link.labelKey) : link.label}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -83,12 +84,6 @@ export default function Footer() {
                 className="text-[13px] font-light text-cream/45 no-underline hover:text-cream transition-colors"
               >
                 hello@gutugasthaus.com
-              </a>
-              <a
-                href="#"
-                className="text-[13px] font-light text-cream/45 no-underline hover:text-cream transition-colors"
-              >
-                WhatsApp
               </a>
               <span className="text-[12px] font-light text-cream/20 font-serif">
                 gutugasthaus.com

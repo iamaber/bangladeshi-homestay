@@ -23,10 +23,10 @@ export default function PrivacyPage() {
               { title: "4. Data Sharing", text: "We share necessary booking information with your assigned host family, including your name, nationality, dietary preferences, and arrival details. We may share anonymized, aggregated data for analytics purposes." },
               { title: "5. Data Security", text: "We implement appropriate technical and organizational measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction. This includes encrypted data transmission (SSL/TLS) and secure storage practices." },
               { title: "6. Cookies", text: "Our website uses cookies to improve your browsing experience and analyze website traffic. You can manage cookie preferences through your browser settings. Essential cookies are required for the website to function properly." },
-              { title: "7. Your Rights", text: "You have the right to access your personal data, request correction or deletion, and object to processing. You may also request data portability. To exercise these rights, please contact us at hello@bengalliving.com." },
+              { title: "7. Your Rights", text: "You have the right to access your personal data, request correction or deletion, and object to processing. You may also request data portability. To exercise these rights, please contact us at hello@gutugasthaus.com." },
               { title: "8. Data Retention", text: "We retain your personal data only for as long as necessary to fulfill the purposes outlined in this policy, typically no longer than 3 years after your last interaction with our service, unless a longer retention period is required by law." },
               { title: "9. Changes to This Policy", text: "We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date." },
-              { title: "10. Contact", text: "For privacy-related inquiries, contact us at hello@bengalliving.com." },
+              { title: "10. Contact", text: "For privacy-related inquiries, contact us at hello@gutugasthaus.com." },
             ].map((section) => (
               <div key={section.title}>
                 <h2 className="font-serif text-[20px] text-ink mb-3">{section.title}</h2>

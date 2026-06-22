@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import { withBasePath } from "@/lib/paths";
+import { assetPath } from "@/lib/paths";
 
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const openMonths = ["Feb", "Mar", "May", "Jun", "Aug", "Sep", "Nov", "Dec"];
@@ -39,21 +39,21 @@ export default function HostProfilePage() {
                 <div className="grid grid-cols-2 gap-1.5">
                   <div className="col-span-2 aspect-[2/1] rounded-sm overflow-hidden">
                     <img
-                      src={withBasePath("/images/host-home-entrance.jpeg")}
+                      src={assetPath("/images/host-home-entrance.jpeg")}
                       alt="Entrance of a Bangladeshi host family home"
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="aspect-square rounded-sm overflow-hidden">
                     <img
-                      src={withBasePath("/images/guest-bedroom-blue.jpeg")}
+                      src={assetPath("/images/guest-bedroom-blue.jpeg")}
                       alt="Guest bedroom in a Bangladeshi host home"
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="aspect-square rounded-sm overflow-hidden">
                     <img
-                      src={withBasePath("/images/home-kitchen.jpeg")}
+                      src={assetPath("/images/home-kitchen.jpeg")}
                       alt="Kitchen inside a Bangladeshi host family home"
                       className="w-full h-full object-cover"
                     />

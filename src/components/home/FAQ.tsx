@@ -2,6 +2,7 @@
 
 import SectionReveal from "@/components/SectionReveal";
 import { useState } from "react";
+import Link from "next/link";
 
 const faqs = [
   {
@@ -12,7 +13,7 @@ const faqs = [
   {
     id: "faq-book",
     q: "How do I book?",
-    a: "Create an account, browse available host families and dates, choose your package, and submit a booking request. You'll receive payment details by email. Your booking is confirmed once payment is received.",
+    a: "Choose your package and dates, then email the prepared booking request. You'll receive payment details after the request is reviewed. Your booking is confirmed once payment is received.",
   },
   {
     id: "faq-choose",
@@ -60,9 +61,9 @@ export default function FAQ() {
                 Can&apos;t find what you&apos;re looking for? Our team responds to all
                 enquiries within 24 hours.
               </p>
-              <a href="#contact" className="btn-fill-sm">
+              <Link href="/contact" className="btn-fill-sm">
                 Ask a Question
-              </a>
+              </Link>
             </div>
           </SectionReveal>
 

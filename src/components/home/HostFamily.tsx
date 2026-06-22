@@ -1,5 +1,6 @@
 import SectionReveal from "@/components/SectionReveal";
-import { withBasePath } from "@/lib/paths";
+import Link from "next/link";
+import { assetPath } from "@/lib/paths";
 
 export default function HostFamily() {
   return (
@@ -12,21 +13,21 @@ export default function HostFamily() {
             <div className="grid grid-cols-2 gap-1.5">
               <div className="col-span-2 aspect-[2/1] rounded-sm overflow-hidden">
                 <img
-                  src={withBasePath("/images/host-home-entrance.jpeg")}
+                  src={assetPath("/images/host-home-entrance.jpeg")}
                   alt="Entrance of a Bangladeshi host family home"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="aspect-square rounded-sm overflow-hidden">
                 <img
-                  src={withBasePath("/images/guest-bedroom-window.jpeg")}
+                  src={assetPath("/images/guest-bedroom-window.jpeg")}
                   alt="Guest bedroom with window in a Bangladeshi host home"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="aspect-square rounded-sm overflow-hidden">
                 <img
-                  src={withBasePath("/images/home-kitchen.jpeg")}
+                  src={assetPath("/images/home-kitchen.jpeg")}
                   alt="Kitchen inside a Bangladeshi host family home"
                   className="w-full h-full object-cover"
                 />
@@ -80,9 +81,9 @@ export default function HostFamily() {
               </div>
 
               <div className="mt-8">
-                <a href={withBasePath("/booking")} className="btn-fill-sm inline-block">
+                <Link href="/booking" className="btn-fill-sm inline-block">
                   Request to Stay
-                </a>
+                </Link>
               </div>
             </div>
           </div>

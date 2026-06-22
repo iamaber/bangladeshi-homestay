@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { withBasePath } from "@/lib/paths";
+import { assetPath } from "@/lib/paths";
 
 const hosts = [
   {
@@ -11,7 +11,7 @@ const hosts = [
     desc: "A warm, carefully selected household prepared to welcome guests into everyday family life, home-cooked meals, and local cultural routines.",
     languages: "Bangla, English, Hindi",
     available: true,
-    image: withBasePath("/images/host-home-entrance.jpeg"),
+    image: assetPath("/images/host-home-entrance.jpeg"),
   },
   {
     id: "future-host-family",
@@ -20,7 +20,7 @@ const hosts = [
     desc: "Additional host homes will be added as the platform expands. Family identity and exact location remain private until the booking process.",
     languages: "Bangla, English",
     available: false,
-    image: withBasePath("/images/family-living-dining-room.jpeg"),
+    image: assetPath("/images/family-living-dining-room.jpeg"),
   },
   {
     id: "seasonal-host-family",
@@ -29,7 +29,7 @@ const hosts = [
     desc: "A seasonal host profile reserved for future availability. Details will be shown only when the home is approved and ready for guests.",
     languages: "Bangla, English",
     available: false,
-    image: withBasePath("/images/riverside-sunset.jpeg"),
+    image: assetPath("/images/riverside-sunset.jpeg"),
   },
 ];
 
@@ -107,7 +107,7 @@ export default function HostsPage() {
             <p className="text-[15px] font-light text-muted leading-[1.85] mb-8">
               We&apos;re expanding to more cities across Bangladesh. Sign up to be notified when new host families become available.
             </p>
-            <Link href="/#contact" className="btn-fill-sm inline-block">Get Notified</Link>
+            <Link href="/contact" className="btn-fill-sm inline-block">Get Notified</Link>
           </div>
         </section>
       </main>

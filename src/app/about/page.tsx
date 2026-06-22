@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
 import { HandHeart, Leaf, Orbit } from "lucide-react";
-import { withBasePath } from "@/lib/paths";
+import { assetPath } from "@/lib/paths";
 
 export default function AboutPage() {
   return (
@@ -43,7 +43,7 @@ export default function AboutPage() {
             </div>
             <div className="grid grid-cols-2 gap-2">
               <Image
-                src={withBasePath("/images/family-sitting-room.jpeg")}
+                src={assetPath("/images/family-sitting-room.jpeg")}
                 alt="Sitting room in a Bangladeshi host family home"
                 width={2048}
                 height={1536}
@@ -51,7 +51,7 @@ export default function AboutPage() {
                 className="col-span-2 aspect-16/10 w-full object-cover"
               />
               <Image
-                src={withBasePath("/images/water-lily-harvest.jpeg")}
+                src={assetPath("/images/water-lily-harvest.jpeg")}
                 alt="Person gathering water lilies in Bangladesh"
                 width={1200}
                 height={1600}
@@ -59,7 +59,7 @@ export default function AboutPage() {
                 className="aspect-4/5 w-full object-cover"
               />
               <Image
-                src={withBasePath("/images/riverside-sunset.jpeg")}
+                src={assetPath("/images/riverside-sunset.jpeg")}
                 alt="Sunset over a Bangladeshi riverside"
                 width={1200}
                 height={1600}

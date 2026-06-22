@@ -9,7 +9,7 @@ const faqs = [
   {
     category: "Booking & Payment",
     items: [
-      { id: "book-how", q: "How do I book?", a: "Create an account, browse available host families and dates, choose your package, and submit a booking request. You'll receive payment details by email. Your booking is confirmed once payment is received." },
+      { id: "book-how", q: "How do I book?", a: "Choose your package and dates, then email the prepared booking request. You'll receive payment details after the request is reviewed. Your booking is confirmed once payment is received." },
       { id: "book-payment", q: "How does payment work?", a: "After booking, you'll receive a payment invoice by email with the details needed to complete your transfer. Your booking is reviewed and confirmed once payment is received." },
       { id: "book-cancel", q: "Can I cancel my booking?", a: "80% refund if cancelled within 7 days of booking. 50% refund if cancelled after 7 days. The 7-day window is measured from the date of booking confirmation." },
       { id: "book-included", q: "What's included in the price?", a: "All packages include a two-week stay with host family, three meals per day, local transportation, airport pickup and dropoff, cultural activities, and local tours. The Premium package adds cooking classes, music sessions, crafts workshops, and additional tours." },
@@ -116,7 +116,7 @@ export default function FAQPage() {
           <div className="max-w-[700px] mx-auto text-center">
             <h2 className="font-serif text-[28px] text-ink mb-4">Still have questions?</h2>
             <p className="text-[15px] font-light text-muted mb-8">We&apos;re happy to help. Reach out and we&apos;ll get back to you within 24 hours.</p>
-            <Link href="/#contact" className="btn-fill-sm">Contact Us</Link>
+            <Link href="/contact" className="btn-fill-sm">Contact Us</Link>
           </div>
         </section>
       </main>
