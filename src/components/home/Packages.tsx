@@ -4,24 +4,13 @@ import Link from "next/link";
 import SectionReveal from "@/components/SectionReveal";
 import { useI18n } from "@/lib/useI18n";
 
-const features = [
-  { section: "Included in all packages", items: [
-    ["14-night stay with host family", true, true],
-    ["All meals — breakfast, lunch & dinner", true, true],
-    ["Airport pickup & dropoff", true, true],
-    ["Local transportation throughout stay", true, true],
-    ["Cultural activities & local sightseeing", true, true],
-  ]},
-  { section: "Premium only", items: [
-    ["Bengali cooking classes", false, true],
-    ["Traditional music sessions & crafts workshops", false, true],
-    ["Additional guided local tours & excursions", false, true],
-    ["More elaborate & varied meal offerings", false, true],
-  ]},
-];
-
 export default function Packages() {
-  const { t } = useI18n();
+  const { t, copy } = useI18n();
+  const features = copy.home.packages.sections.map((section, sectionIndex) => ({
+    section: section.section,
+    items: section.items.map((item) => [item, sectionIndex === 0, true] as const),
+    premiumOnly: sectionIndex === 1,
+  }));
 
   return (
     <section className="py-16 px-6 lg:px-14 bg-cream2" id="packages">
@@ -38,10 +27,10 @@ export default function Packages() {
             <div className="grid grid-cols-[2fr_1fr_1fr] gap-0 pb-5 border-b border-rule">
               <div />
               <div className="text-[11px] font-semibold tracking-[0.16em] uppercase text-muted pl-6">
-                Without Flight
+                {copy.home.packages.withoutFlight}
               </div>
               <div className="text-[11px] font-semibold tracking-[0.16em] uppercase text-muted pl-6">
-                With Flight Ticket
+                {copy.home.packages.withFlight}
               </div>
             </div>
 
@@ -77,7 +66,7 @@ export default function Packages() {
                 <div className="font-serif text-[26px] text-ink mb-1.5">
                   Premium{" "}
                   <span className="text-[10px] font-semibold tracking-[0.1em] uppercase text-gold border border-gold px-2 py-0.5 ml-3 relative top-[-2px]">
-                    Recommended
+                    {copy.common.recommended}
                   </span>
                 </div>
                 <div className="text-[13px] font-light text-muted max-w-[320px] leading-[1.6]">
@@ -132,9 +121,9 @@ export default function Packages() {
                           <span className="text-green-soft text-[15px] font-semibold">
                             ✓
                           </span>
-                          {section.section === "Premium only" && (
+                          {section.premiumOnly && (
                             <span className="text-[11px] text-gold font-medium tracking-[0.04em]">
-                              Premium
+                              {copy.common.premium}
                             </span>
                           )}
                         </>
@@ -158,9 +147,7 @@ export default function Packages() {
               </Link>
             </div>
             <p className="mt-7 text-[13px] text-muted">
-              All prices are listed in CHF. Payment details are sent by invoice
-              after booking. Personal market purchases, souvenirs, and
-              international flights (unless selected) are not included.
+              {copy.home.packages.note}
             </p>
           </SectionReveal>
         </div>

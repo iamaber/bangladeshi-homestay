@@ -8,6 +8,7 @@ import {
 } from "react";
 import { I18nContext, type I18nContextValue } from "@/lib/i18n-context";
 import { translations, type Lang } from "@/lib/i18n-data";
+import { copyByLang } from "@/lib/site-copy";
 
 const LANG_STORAGE_KEY = "bh-lang";
 const LANG_CHANGE_EVENT = "bh-lang-change";
@@ -47,6 +48,7 @@ export default function I18nProvider({ children }: { children: ReactNode }) {
         window.dispatchEvent(new Event(LANG_CHANGE_EVENT));
       },
       t: (key) => translations[lang][key],
+      copy: copyByLang[lang],
     }),
     [lang],
   );

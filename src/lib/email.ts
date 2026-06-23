@@ -1,4 +1,4 @@
-export const contactEmail = "hello@gutugasthaus.com";
+export const contactEmail = "hello@gurugasthaus.com";
 
 type EmailField = {
   label: string;

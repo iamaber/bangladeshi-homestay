@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useI18n } from "@/lib/useI18n";
 import { assetPath } from "@/lib/paths";
+import { brand } from "@/lib/site-copy";
 
 const footerLinks = {
   experience: [
@@ -15,13 +16,13 @@ const footerLinks = {
   support: [
     { href: "/#faq", labelKey: "navFaq" },
     { href: "/contact", labelKey: "footerContact" },
-    { href: "/terms", label: "Terms & Conditions" },
-    { href: "/privacy", label: "Privacy Policy" },
+    { href: "/terms", labelKey: "termsTitle" },
+    { href: "/privacy", labelKey: "privacyTitle" },
   ],
 } as const;
 
 export default function Footer() {
-  const { t } = useI18n();
+  const { t, copy } = useI18n();
 
   return (
     <footer id="contact" className="bg-ink py-72px px-6 lg:px-14">
@@ -30,7 +31,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Image
               src={assetPath("/logo.svg")}
-              alt="Gutu Gasthaus"
+              alt={copy.media.logoAlt}
               width={760}
               height={200}
               className="block h-12 w-auto mb-4"
@@ -68,7 +69,11 @@ export default function Footer() {
                   href={link.href}
                   className="text-[13px] font-light text-cream/45 no-underline hover:text-cream transition-colors"
                 >
-                  {"labelKey" in link ? t(link.labelKey) : link.label}
+                  {link.labelKey === "termsTitle"
+                    ? copy.pages.legal.termsTitle
+                    : link.labelKey === "privacyTitle"
+                      ? copy.pages.legal.privacyTitle
+                      : t(link.labelKey)}
                 </Link>
               ))}
             </div>
@@ -80,13 +85,13 @@ export default function Footer() {
             </h5>
             <div className="flex flex-col gap-2.5">
               <a
-                href="mailto:hello@gutugasthaus.com"
+                href={`mailto:${brand.email}`}
                 className="text-[13px] font-light text-cream/45 no-underline hover:text-cream transition-colors"
               >
-                hello@gutugasthaus.com
+                {brand.email}
               </a>
               <span className="text-[12px] font-light text-cream/20 font-serif">
-                gutugasthaus.com
+                {brand.domain}
               </span>
             </div>
           </div>
@@ -94,7 +99,7 @@ export default function Footer() {
 
         <div className="pt-7 flex flex-col md:flex-row justify-between items-center gap-4">
           <span className="text-[12px] text-cream/30">
-            &copy; {new Date().getFullYear()} Gutu Gasthaus. {t("footerRights")}
+            &copy; {new Date().getFullYear()} {brand.name}. {t("footerRights")}
           </span>
           <span className="text-[12px] text-cream/20 font-serif">
             {t("footerPayment")}

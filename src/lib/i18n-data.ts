@@ -59,7 +59,7 @@ export type TranslationKey =
 
 export const translations: Record<Lang, Record<TranslationKey, string>> = {
   EN: {
-    brandFirst: "Gutu",
+    brandFirst: "Guru",
     brandSecond: "Gasthaus",
     navHow: "How It Works",
     navPackages: "Packages",
@@ -90,7 +90,7 @@ export const translations: Record<Lang, Record<TranslationKey, string>> = {
     aboutHeadlineA: "A Different Kind",
     aboutHeadlineB: "of Travel",
     aboutP1:
-      "Bangladesh isn't just a destination. It's an experience that stays with you. Gutu Gasthaus connects you with warm, welcoming host families across Bangladesh for a 2-week immersion like no other.",
+      "Bangladesh isn't just a destination. It's an experience that stays with you. Guru Gasthaus connects you with warm, welcoming host families across Bangladesh for a 2-week immersion like no other.",
     aboutP2:
       "Wake up to home-cooked breakfasts, explore local markets, learn to cook traditional recipes, and build friendships that last a lifetime.",
     aboutP3: "This isn't tourism. This is belonging.",
@@ -127,7 +127,7 @@ export const translations: Record<Lang, Record<TranslationKey, string>> = {
     footerPayment: "Prices in CHF · Payment by invoice",
   },
   DE: {
-    brandFirst: "Gutu",
+    brandFirst: "Guru",
     brandSecond: "Gasthaus",
     navHow: "So funktioniert es",
     navPackages: "Pakete",
@@ -158,7 +158,7 @@ export const translations: Record<Lang, Record<TranslationKey, string>> = {
     aboutHeadlineA: "Eine andere Art",
     aboutHeadlineB: "zu reisen",
     aboutP1:
-      "Bangladesch ist nicht nur ein Reiseziel. Es ist eine Erfahrung, die bleibt. Gutu Gasthaus verbindet dich mit herzlichen Gastfamilien für eine zweiwöchige Immersion.",
+      "Bangladesch ist nicht nur ein Reiseziel. Es ist eine Erfahrung, die bleibt. Guru Gasthaus verbindet dich mit herzlichen Gastfamilien für eine zweiwöchige Immersion.",
     aboutP2:
       "Wache mit hausgemachtem Frühstück auf, besuche lokale Märkte, lerne traditionelle Rezepte und knüpfe Freundschaften fürs Leben.",
     aboutP3: "Das ist kein Tourismus. Das ist Zugehörigkeit.",
@@ -195,7 +195,7 @@ export const translations: Record<Lang, Record<TranslationKey, string>> = {
     footerPayment: "Preise in CHF · Zahlung per Rechnung",
   },
   FR: {
-    brandFirst: "Gutu",
+    brandFirst: "Guru",
     brandSecond: "Gasthaus",
     navHow: "Comment ça marche",
     navPackages: "Forfaits",
@@ -226,7 +226,7 @@ export const translations: Record<Lang, Record<TranslationKey, string>> = {
     aboutHeadlineA: "Une autre façon",
     aboutHeadlineB: "de voyager",
     aboutP1:
-      "Le Bangladesh n'est pas seulement une destination. C'est une expérience qui reste avec vous. Gutu Gasthaus vous relie à des familles chaleureuses pour une immersion de deux semaines.",
+      "Le Bangladesh n'est pas seulement une destination. C'est une expérience qui reste avec vous. Guru Gasthaus vous relie à des familles chaleureuses pour une immersion de deux semaines.",
     aboutP2:
       "Réveillez-vous avec des petits-déjeuners maison, explorez les marchés locaux, apprenez des recettes traditionnelles et créez des amitiés durables.",
     aboutP3: "Ce n'est pas du tourisme. C'est un sentiment d'appartenance.",
@@ -263,7 +263,7 @@ export const translations: Record<Lang, Record<TranslationKey, string>> = {
     footerPayment: "Prix en CHF · Paiement par facture",
   },
   IT: {
-    brandFirst: "Gutu",
+    brandFirst: "Guru",
     brandSecond: "Gasthaus",
     navHow: "Come funziona",
     navPackages: "Pacchetti",
@@ -294,7 +294,7 @@ export const translations: Record<Lang, Record<TranslationKey, string>> = {
     aboutHeadlineA: "Un modo diverso",
     aboutHeadlineB: "di viaggiare",
     aboutP1:
-      "Il Bangladesh non è solo una destinazione. È un'esperienza che resta con te. Gutu Gasthaus ti collega a famiglie accoglienti per un'immersione di due settimane.",
+      "Il Bangladesh non è solo una destinazione. È un'esperienza che resta con te. Guru Gasthaus ti collega a famiglie accoglienti per un'immersione di due settimane.",
     aboutP2:
       "Svegliati con colazioni fatte in casa, esplora mercati locali, impara ricette tradizionali e crea amicizie che durano.",
     aboutP3: "Questo non è turismo. È appartenenza.",

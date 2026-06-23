@@ -5,7 +5,7 @@ import { useI18n } from "@/lib/useI18n";
 import Link from "next/link";
 
 export default function CTA() {
-  const { t } = useI18n();
+  const { t, copy } = useI18n();
 
   return (
     <section className="py-16 px-6 lg:px-14 bg-terra relative overflow-hidden" id="booking">
@@ -39,7 +39,7 @@ export default function CTA() {
                   {t("bookNow")}
                 </Link>
                 <Link href="/contact" className="btn-ghost-cream">
-                  Contact Us
+                  {copy.home.ctaContact}
                 </Link>
               </div>
             </div>

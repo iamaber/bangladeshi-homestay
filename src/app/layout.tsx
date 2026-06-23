@@ -15,7 +15,7 @@ const satoshi = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Gutu Gasthaus — Authentic Bangladeshi Homestay",
+  title: "Guru Gasthaus — Authentic Bangladeshi Homestay",
   description:
     "Stay with a real Bangladeshi family, share their meals, join their daily life, and experience a culture that no hotel can offer.",
   keywords: [

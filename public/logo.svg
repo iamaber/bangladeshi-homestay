@@ -1,6 +1,6 @@
 <svg width="760" height="200" viewBox="0 0 760 200" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logoTitle logoDesc">
-  <title id="logoTitle">Gutu Gasthaus</title>
-  <desc id="logoDesc">A refined guesthouse logo with an arched house emblem and Gutu Gasthaus wordmark.</desc>
+  <title id="logoTitle">Guru Gasthaus</title>
+  <desc id="logoDesc">A refined guesthouse logo with an arched house emblem and Guru Gasthaus wordmark.</desc>
   <defs>
     <style>
       .cream{fill:#f7f3ec}
@@ -39,7 +39,7 @@
   </g>
 
   <g transform="translate(225 43)">
-    <text x="0" y="68" class="brand cream">Gutu</text>
+    <text x="0" y="68" class="brand cream">Guru</text>
     <text x="3" y="123" class="sub gold">GASTHAUS</text>
     <path d="M221 86c5 5 8 12 8 20-13-2-21-9-24-21 7 0 12 1 16 1Z" class="gold"/>
     <path d="M202 86c-5 5-8 12-8 20 13-2 21-9 24-21-7 0-12 1-16 1Z" class="gold"/>

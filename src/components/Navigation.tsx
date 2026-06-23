@@ -20,7 +20,7 @@ export default function Navigation() {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileGroup, setMobileGroup] = useState<string | null>(null);
   const pathname = usePathname();
-  const { lang, setLang, t } = useI18n();
+  const { lang, setLang, t, copy } = useI18n();
   const reduceMotion = useReducedMotion();
   const langs: Lang[] = ["EN", "DE", "FR", "IT"];
   const isHome = pathname === "/";
@@ -75,13 +75,13 @@ export default function Navigation() {
         <Link
           href="/"
           scroll
-          aria-label="Gutu Gasthaus home"
+          aria-label={copy.media.navHome}
           onClick={() => setScrolled(false)}
           className="no-underline hover:opacity-80 transition-opacity"
         >
           <Image
             src={assetPath("/logo.svg")}
-            alt="Gutu Gasthaus"
+            alt={copy.media.logoAlt}
             width={760}
             height={200}
             priority

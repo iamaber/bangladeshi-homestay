@@ -2,37 +2,34 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import { assetPath } from "@/lib/paths";
+import { useI18n } from "@/lib/useI18n";
 
 const tiles = [
   {
     src: "/images/riverside-sunset.jpeg",
-    alt: "Riverside at sunset in Bangladesh",
     span: "md:col-span-2 md:row-span-2",
   },
   {
     src: "/images/water-lily-harvest.jpeg",
-    alt: "Harvesting water lilies on a Bangladeshi river",
     span: "md:col-span-2",
   },
   {
     src: "/images/river-cargo-boat.jpeg",
-    alt: "Cargo boat on a Bangladeshi river",
     span: "md:col-span-2",
   },
   {
     src: "/images/family-sitting-room.jpeg",
-    alt: "Family sitting room inside a host home",
     span: "md:col-span-2",
   },
   {
     src: "/images/guest-bedroom-blue.jpeg",
-    alt: "Guest bedroom in blue tones",
     span: "md:col-span-2",
   },
 ];
 
 export default function Gallery() {
   const reduceMotion = useReducedMotion();
+  const { copy } = useI18n();
 
   const container = {
     hidden: {},
@@ -59,9 +56,9 @@ export default function Gallery() {
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="eyebrow">In Their World</span>
+          <span className="eyebrow">{copy.home.gallery.eyebrow}</span>
           <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-bold leading-[1.12] text-cream tracking-[-0.01em] mb-10">
-            Glimpses of <em>everyday life</em>
+            {copy.home.gallery.headline} <em>{copy.home.gallery.emphasis}</em>
           </h2>
         </motion.div>
 
@@ -82,7 +79,17 @@ export default function Gallery() {
             >
               <img
                 src={assetPath(tile.src)}
-                alt={tile.alt}
+                alt={
+                  tile.src.includes("riverside")
+                    ? copy.media.riverside
+                    : tile.src.includes("water-lily")
+                      ? copy.media.waterLilies
+                      : tile.src.includes("cargo")
+                        ? copy.media.cargoBoat
+                        : tile.src.includes("sitting")
+                          ? copy.media.familyRoom
+                          : copy.media.bedroomBlue
+                }
                 loading="lazy"
                 className="w-full h-full object-cover"
               />

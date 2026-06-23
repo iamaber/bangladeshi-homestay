@@ -7,7 +7,7 @@ import { useI18n } from "@/lib/useI18n";
 import { assetPath } from "@/lib/paths";
 
 export default function Hero() {
-  const { t } = useI18n();
+  const { t, copy } = useI18n();
   const reduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -35,7 +35,7 @@ export default function Hero() {
       <motion.div className="absolute inset-0" style={{ y: reduceMotion ? 0 : bgY }}>
         <img
           src={assetPath("/images/river-boat-sunset.jpeg")}
-          alt="Boat on a Bangladeshi river at sunset"
+          alt={copy.media.heroRiver}
           className="w-full h-[118%] object-cover scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-[#0e2218]/90 via-green/80 to-[#0e2218]/70" />
@@ -100,7 +100,7 @@ export default function Hero() {
             14
           </span>
           <div className="text-[11px] font-medium tracking-[0.12em] uppercase text-cream/40 mt-1">
-            Days Immersion
+            {copy.home.heroStats.days}
           </div>
         </div>
         <div>
@@ -108,7 +108,7 @@ export default function Hero() {
             CHF 2.7k
           </span>
           <div className="text-[11px] font-medium tracking-[0.12em] uppercase text-cream/40 mt-1">
-            Starting From
+            {copy.home.heroStats.price}
           </div>
         </div>
       </motion.div>

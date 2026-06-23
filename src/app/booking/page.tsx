@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { contactEmail, createMailtoUrl } from "@/lib/email";
+import { useI18n } from "@/lib/useI18n";
 
 const prices = {
   standard: { label: "Standard", withoutFlight: 2700, withFlight: 4200 },
@@ -16,6 +17,7 @@ export default function BookingPage() {
   const [submitted, setSubmitted] = useState(false);
   const [packageKey, setPackageKey] = useState<PackageKey>("standard");
   const [includeFlight, setIncludeFlight] = useState(false);
+  const { copy } = useI18n();
 
   const total = useMemo(() => {
     const selected = prices[packageKey];
@@ -25,21 +27,21 @@ export default function BookingPage() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const subject = `Booking request: ${prices[packageKey].label} package`;
+    const subject = copy.pages.booking.subject.replace("{package}", prices[packageKey].label);
 
     window.location.href = createMailtoUrl(subject, [
-      { label: "First name", value: data.get("firstName") },
-      { label: "Last name", value: data.get("lastName") },
-      { label: "Email", value: data.get("email") },
-      { label: "Phone", value: data.get("phone") },
-      { label: "Country", value: data.get("country") },
-      { label: "Guests", value: data.get("guests") },
-      { label: "Package", value: prices[packageKey].label },
-      { label: "Flight ticket", value: includeFlight ? "Included" : "Not included" },
-      { label: "Estimated total", value: `CHF ${total.toLocaleString("en-US")}` },
-      { label: "Preferred arrival", value: data.get("arrivalDate") },
-      { label: "Preferred departure", value: data.get("departureDate") },
-      { label: "Notes", value: data.get("notes") },
+      { label: copy.pages.booking.fields.firstName, value: data.get("firstName") },
+      { label: copy.pages.booking.fields.lastName, value: data.get("lastName") },
+      { label: copy.pages.booking.fields.email, value: data.get("email") },
+      { label: copy.pages.booking.fields.phone, value: data.get("phone") },
+      { label: copy.pages.booking.fields.country, value: data.get("country") },
+      { label: copy.pages.booking.fields.guests, value: data.get("guests") },
+      { label: copy.pages.booking.fields.package, value: prices[packageKey].label },
+      { label: copy.pages.booking.fields.flight, value: includeFlight ? copy.common.included : copy.common.notIncluded },
+      { label: copy.pages.booking.fields.total, value: `CHF ${total.toLocaleString("en-US")}` },
+      { label: copy.pages.booking.fields.arrival, value: data.get("arrivalDate") },
+      { label: copy.pages.booking.fields.departure, value: data.get("departureDate") },
+      { label: copy.pages.booking.fields.notes, value: data.get("notes") },
     ]);
     setSubmitted(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -52,21 +54,21 @@ export default function BookingPage() {
         <section className="pt-20 pb-20 px-6 lg:px-14 bg-cream">
           <div className="max-w-1180px mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-start">
             <div>
-              <span className="eyebrow">Booking</span>
+              <span className="eyebrow">{copy.pages.booking.eyebrow}</span>
               <h1 className="heading font-serif text-[clamp(34px,4vw,58px)] leading-[1.08] text-ink tracking-[-0.01em]">
-                Book your Bangladeshi <em>homestay experience</em>
+                {copy.pages.booking.headline} <em>{copy.pages.booking.emphasis}</em>
               </h1>
               <p className="mt-6 text-[15.5px] font-light text-muted leading-[1.85] max-w-620px">
-                Submit your booking request and receive confirmation with a Swiss QR payment invoice by email. Payment is completed after submission, not on this page.
+                {copy.pages.booking.intro}
               </p>
             </div>
 
             <div className="border-t-2 border-gold pt-7">
               <div className="text-[11px] font-semibold tracking-[0.16em] uppercase text-muted mb-4">
-                Payment after booking
+                {copy.pages.booking.afterTitle}
               </div>
               <p className="text-[14px] font-light text-ink2/80 leading-[1.8]">
-                After the request is reviewed, a Swiss QR-invoice PDF is sent to your email. Scan it with your Swiss banking app to fill in the transfer details and complete payment.
+                {copy.pages.booking.afterText}
               </p>
             </div>
           </div>
@@ -77,24 +79,24 @@ export default function BookingPage() {
             {submitted ? (
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.8fr] gap-12 lg:gap-20 items-start">
                 <div className="py-12 border-y border-rule">
-                  <span className="eyebrow">Email Draft Opened</span>
+                  <span className="eyebrow">{copy.pages.booking.opened}</span>
                   <h2 className="font-serif text-[clamp(30px,3vw,44px)] text-ink leading-[1.14] mb-5">
-                    Send the prepared email to complete your request.
+                    {copy.pages.booking.openedTitle}
                   </h2>
                   <p className="text-[15px] font-light text-muted leading-[1.85] max-w-620px">
-                    Your email app should contain the booking details. Send it to {contactEmail}. We will review it and reply with the payment invoice. Your booking is confirmed only after payment is received.
+                    {copy.pages.booking.openedText.replace("{email}", contactEmail)}
                   </p>
                 </div>
                 <div className="bg-green text-cream p-8">
                   <div className="text-[11px] font-semibold tracking-[0.16em] uppercase text-cream/50 mb-5">
-                    Selected package
+                    {copy.pages.booking.selectedPackage}
                   </div>
                   <div className="text-[30px] font-serif mb-2">{prices[packageKey].label}</div>
                   <div className="text-[14px] text-cream/60 mb-8">
-                    {includeFlight ? "With flight ticket" : "Without flight ticket"}
+                    {includeFlight ? copy.common.withFlight : copy.common.withoutFlight}
                   </div>
                   <div className="text-[11px] font-semibold tracking-[0.16em] uppercase text-cream/45 mb-2">
-                    Estimated total
+                    {copy.common.estimatedTotal}
                   </div>
                   <div className="text-[38px] font-serif">CHF {total.toLocaleString("en-US")}</div>
                 </div>
@@ -103,7 +105,7 @@ export default function BookingPage() {
               <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 lg:gap-16">
                 <div className="space-y-12">
                   <section>
-                    <h2 className="font-serif text-[24px] text-ink mb-6">Choose your package</h2>
+                    <h2 className="font-serif text-[24px] text-ink mb-6">{copy.pages.booking.choosePackage}</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {(Object.keys(prices) as PackageKey[]).map((key) => {
                         const item = prices[key];
@@ -129,13 +131,13 @@ export default function BookingPage() {
                                 <div className="font-serif text-[22px] text-ink">{item.label}</div>
                                 <p className="text-[13px] font-light text-muted leading-[1.7] mt-2">
                                   {key === "standard"
-                                    ? "Host family stay, meals, local transport, and basic cultural activities."
-                                    : "Standard inclusions plus extended cooking, music, crafts, and local tours."}
+                                    ? copy.pages.booking.standardDesc
+                                    : copy.pages.booking.premiumDesc}
                                 </p>
                               </div>
                               <div className="text-right">
                                 <div className="text-[11px] font-semibold tracking-[0.12em] uppercase text-muted">
-                                  From
+                                  {copy.common.from}
                                 </div>
                                 <div className="font-serif text-[24px] text-green">
                                   CHF {item.withoutFlight.toLocaleString("en-US")}
@@ -156,42 +158,42 @@ export default function BookingPage() {
                         className="mt-1 h-4 w-4 accent-green"
                       />
                       <span>
-                        <span className="block text-[14px] font-medium text-ink">Include international flight ticket</span>
+                        <span className="block text-[14px] font-medium text-ink">{copy.pages.booking.includeFlight}</span>
                         <span className="block text-[13px] font-light text-muted">
-                          Adds CHF 1,500 to the selected package.
+                          {copy.pages.booking.flightExtra}
                         </span>
                       </span>
                     </label>
                   </section>
 
                   <section>
-                    <h2 className="font-serif text-[24px] text-ink mb-6">Guest details</h2>
+                    <h2 className="font-serif text-[24px] text-ink mb-6">{copy.pages.booking.guestDetails}</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <Field label="First name" name="firstName" autoComplete="given-name" />
-                      <Field label="Last name" name="lastName" autoComplete="family-name" />
-                      <Field label="Email" name="email" type="email" autoComplete="email" />
-                      <Field label="Phone" name="phone" type="tel" autoComplete="tel" />
-                      <Field label="Country of residence" name="country" autoComplete="country-name" />
-                      <Field label="Number of guests" name="guests" type="number" min="1" max="6" defaultValue="1" />
+                      <Field label={copy.pages.booking.fields.firstName} name="firstName" autoComplete="given-name" />
+                      <Field label={copy.pages.booking.fields.lastName} name="lastName" autoComplete="family-name" />
+                      <Field label={copy.pages.booking.fields.email} name="email" type="email" autoComplete="email" />
+                      <Field label={copy.pages.booking.fields.phone} name="phone" type="tel" autoComplete="tel" />
+                      <Field label={copy.pages.booking.fields.countryResidence} name="country" autoComplete="country-name" />
+                      <Field label={copy.pages.booking.fields.guests} name="guests" type="number" min="1" max="6" defaultValue="1" />
                     </div>
                   </section>
 
                   <section>
-                    <h2 className="font-serif text-[24px] text-ink mb-6">Travel preferences</h2>
+                    <h2 className="font-serif text-[24px] text-ink mb-6">{copy.pages.booking.travelPrefs}</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <Field label="Preferred arrival date" name="arrivalDate" type="date" />
-                      <Field label="Preferred departure date" name="departureDate" type="date" />
+                      <Field label={copy.pages.booking.fields.arrival} name="arrivalDate" type="date" />
+                      <Field label={copy.pages.booking.fields.departure} name="departureDate" type="date" />
                     </div>
                     <div className="mt-5">
                       <label htmlFor="notes" className="block text-[13px] font-medium text-ink mb-1.5">
-                        Dietary needs, accessibility needs, or questions
+                        {copy.pages.booking.notesLabel}
                       </label>
                       <textarea
                         id="notes"
                         name="notes"
                         rows={5}
                         className="w-full px-4 py-3 border border-rule bg-cream2 text-ink placeholder:text-muted/50 focus:outline-none focus:ring-1 focus:ring-green/30 focus:border-green transition-colors text-[14px] resize-none"
-                        placeholder="Tell us anything important before we review your booking."
+                        placeholder={copy.pages.booking.notesPlaceholder}
                       />
                     </div>
                   </section>
@@ -199,27 +201,27 @@ export default function BookingPage() {
 
                 <aside className="lg:sticky lg:top-24 h-fit bg-green text-cream p-7">
                   <div className="text-[11px] font-semibold tracking-[0.16em] uppercase text-cream/45 mb-5">
-                    Booking summary
+                    {copy.pages.booking.summary}
                   </div>
                   <div className="flex justify-between gap-4 py-3 border-b border-white/10">
-                    <span className="text-cream/55 text-[13px]">Package</span>
+                    <span className="text-cream/55 text-[13px]">{copy.common.package}</span>
                     <span className="text-[14px] font-medium">{prices[packageKey].label}</span>
                   </div>
                   <div className="flex justify-between gap-4 py-3 border-b border-white/10">
-                    <span className="text-cream/55 text-[13px]">Flight ticket</span>
-                    <span className="text-[14px] font-medium">{includeFlight ? "Included" : "Not included"}</span>
+                    <span className="text-cream/55 text-[13px]">{copy.common.flightTicket}</span>
+                    <span className="text-[14px] font-medium">{includeFlight ? copy.common.included : copy.common.notIncluded}</span>
                   </div>
                   <div className="pt-6">
                     <div className="text-[11px] font-semibold tracking-[0.16em] uppercase text-cream/45 mb-2">
-                      Estimated total
+                      {copy.common.estimatedTotal}
                     </div>
                     <div className="font-serif text-[40px] leading-none">CHF {total.toLocaleString("en-US")}</div>
                   </div>
                   <p className="text-[12.5px] font-light text-cream/55 leading-[1.7] mt-6">
-                    Payment is not collected on this page. A Swiss QR payment invoice is sent by email after the booking request is reviewed.
+                    {copy.pages.booking.summaryNote}
                   </p>
                   <button type="submit" className="btn-cream w-full mt-8 text-center">
-                    Email Booking Request
+                    {copy.pages.booking.submit}
                   </button>
                 </aside>
               </form>

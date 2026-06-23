@@ -2,11 +2,13 @@
 
 import { createContext } from "react";
 import type { Lang, TranslationKey } from "@/lib/i18n-data";
+import type { SiteCopy } from "@/lib/site-copy";
 
 export type I18nContextValue = {
   lang: Lang;
   setLang: (lang: Lang) => void;
   t: (key: TranslationKey) => string;
+  copy: SiteCopy;
 };
 
 export const I18nContext = createContext<I18nContextValue | null>(null);

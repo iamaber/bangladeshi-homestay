@@ -5,7 +5,7 @@ import { useI18n } from "@/lib/useI18n";
 import { assetPath } from "@/lib/paths";
 
 export default function About() {
-  const { t } = useI18n();
+  const { t, copy } = useI18n();
 
   return (
     <section className="py-16 px-6 lg:px-14" id="about">
@@ -29,13 +29,7 @@ export default function About() {
                 {t("aboutP3")}
               </p>
               <div className="flex flex-wrap gap-2.5 mt-9 pt-9 border-t border-rule">
-                {[
-                  "Verified Host Families",
-                  "All-Inclusive",
-                  "Cultural Immersion",
-                  "2-Week Stay",
-                  "Airport Transfer",
-                ].map((tag) => (
+                {copy.home.tags.map((tag) => (
                   <span
                     key={tag}
                     className="text-[11.5px] font-medium tracking-[0.07em] uppercase text-green-mid border-b border-green-mid pb-0.5"
@@ -50,7 +44,7 @@ export default function About() {
               <div className="aspect-[4/5] overflow-hidden">
                 <img
                   src={assetPath("/images/family-living-dining-room.jpeg")}
-                  alt="Dining and living room inside a Bangladeshi host family home"
+                  alt={copy.media.familyLiving}
                   className="h-full w-full object-cover"
                 />
               </div>
