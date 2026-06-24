@@ -15,7 +15,7 @@ export default function FAQ() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-10 lg:gap-20 items-start">
           <SectionReveal>
             <div>
-              <span className="eyebrow">FAQ</span>
+              <span className="eyebrow">{copy.pages.faq.eyebrow}</span>
               <h2 className="heading font-serif text-[clamp(32px,3.5vw,50px)] font-bold leading-[1.12] text-ink tracking-[-0.01em]">
                 {copy.home.faq.headlineA}
                 <br />

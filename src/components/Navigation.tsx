@@ -186,7 +186,7 @@ export default function Navigation() {
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="lg:hidden text-cream p-2"
-          aria-label="Toggle menu"
+          aria-label={copy.common.toggleMenu}
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             {mobileOpen ? (

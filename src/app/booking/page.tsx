@@ -12,6 +12,7 @@ const prices = {
 };
 
 type PackageKey = keyof typeof prices;
+const packageOrder: PackageKey[] = ["premium", "standard"];
 
 export default function BookingPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -107,7 +108,7 @@ export default function BookingPage() {
                   <section>
                     <h2 className="font-serif text-[24px] text-ink mb-6">{copy.pages.booking.choosePackage}</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {(Object.keys(prices) as PackageKey[]).map((key) => {
+                      {packageOrder.map((key) => {
                         const item = prices[key];
                         const active = packageKey === key;
 
