@@ -10,7 +10,7 @@ const tiles = [
     span: "md:col-span-2 md:row-span-2",
   },
   {
-    src: "/images/water-lily-harvest.jpeg",
+    src: "/images/bhuna-khichuri.jpeg",
     span: "md:col-span-2",
   },
   {
@@ -82,8 +82,8 @@ export default function Gallery() {
                 alt={
                   tile.src.includes("riverside")
                     ? copy.media.riverside
-                    : tile.src.includes("water-lily")
-                      ? copy.media.waterLilies
+                    : tile.src.includes("bhuna-khichuri")
+                      ? copy.media.bhunaKhichuri
                       : tile.src.includes("cargo")
                         ? copy.media.cargoBoat
                         : tile.src.includes("sitting")
@@ -96,6 +96,27 @@ export default function Gallery() {
             </motion.div>
           ))}
         </motion.div>
+        <p className="mt-3 text-[10px] leading-relaxed text-cream/40">
+          Food photo:{" "}
+          <a
+            href="https://commons.wikimedia.org/wiki/File:Bhuna_Khichuri_with_Chicken,_Vegetables,_Chili,_and_Lemon.jpg"
+            target="_blank"
+            rel="noreferrer"
+            className="underline decoration-cream/20 underline-offset-2 hover:text-cream/70"
+          >
+            Ankan Ghosh Dastider
+          </a>
+          ,{" "}
+          <a
+            href="https://creativecommons.org/licenses/by-sa/4.0/"
+            target="_blank"
+            rel="noreferrer"
+            className="underline decoration-cream/20 underline-offset-2 hover:text-cream/70"
+          >
+            CC BY-SA 4.0
+          </a>
+          .
+        </p>
       </div>
     </section>
   );

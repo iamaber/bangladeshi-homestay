@@ -32,8 +32,8 @@ export default function HostFamily() {
               </div>
               <div className="aspect-square rounded-sm overflow-hidden">
                 <img
-                  src={assetPath("/images/home-kitchen.jpeg")}
-                  alt={copy.media.homeKitchen}
+                  src={assetPath("/images/family-photo.jpeg")}
+                  alt={copy.media.familyPhoto}
                   className="w-full h-full object-cover"
                 />
               </div>
