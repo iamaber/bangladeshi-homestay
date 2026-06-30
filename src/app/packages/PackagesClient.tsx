@@ -46,6 +46,41 @@ export default function PackagesPage() {
           </div>
         </section>
 
+        <section className="py-16 px-6 lg:px-14 bg-cream2">
+          <div className="max-w-1180px mx-auto grid grid-cols-1 lg:grid-cols-[1fr_0.95fr] gap-10 lg:gap-16 items-start">
+            <div>
+              <span className="eyebrow">{copy.pages.packages.pricingEyebrow}</span>
+              <h2 className="heading font-serif text-[clamp(30px,3.6vw,48px)] leading-[1.08] text-ink max-w-650px">
+                {copy.pages.packages.pricingTitle}
+              </h2>
+              <p className="mt-5 text-[15px] font-light text-muted leading-[1.8] max-w-650px">
+                {copy.pages.packages.pricingText}
+              </p>
+              <div className="mt-8">
+                <Link href="/contact" className="btn-fill-sm">
+                  {copy.common.contactOurTeam}
+                </Link>
+              </div>
+            </div>
+
+            <div className="border-t border-rule">
+              {copy.pages.packages.pricingHighlights.map(([label, value]) => (
+                <div
+                  key={label}
+                  className="grid grid-cols-[0.42fr_1fr] gap-5 py-5 border-b border-rule"
+                >
+                  <span className="text-[11px] font-semibold tracking-[0.16em] uppercase text-gold">
+                    {label}
+                  </span>
+                  <span className="text-[16px] font-semibold leading-[1.45] text-ink">
+                    {value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section id="experience" className="py-20 lg:py-28 px-6 lg:px-14 bg-cream">
           <div className="max-w-1180px mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-[0.7fr_1.3fr] gap-12 lg:gap-24">
@@ -73,6 +108,22 @@ export default function PackagesPage() {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-14 px-6 lg:px-14 bg-cream2">
+          <div className="max-w-1000px mx-auto grid grid-cols-1 lg:grid-cols-[0.35fr_1fr] gap-5 lg:gap-12 border-t border-b border-rule py-8">
+            <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-gold">
+              {copy.pages.packages.shortStayEyebrow}
+            </span>
+            <div>
+              <h2 className="font-serif text-[26px] font-black leading-[1.15] text-ink">
+                {copy.pages.packages.shortStayTitle}
+              </h2>
+              <p className="mt-4 text-[14px] font-light text-muted leading-[1.8] max-w-720px">
+                {copy.pages.packages.shortStayText}
+              </p>
             </div>
           </div>
         </section>
