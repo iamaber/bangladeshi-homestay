@@ -3,7 +3,24 @@
 This repository is split into two applications:
 
 - `frontend/`: static-export Next.js website.
-- `backend/`: FastAPI service for booking support and Swiss QR invoice PDFs.
+- `backend/`: FastAPI service for booking storage, admin status tracking, and Swiss QR invoice PDFs.
+
+## Local Setup
+
+Start PostgreSQL:
+
+```bash
+docker compose up -d postgres
+```
+
+Create env files:
+
+```bash
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env.local
+```
+
+Set `APP_ADMIN_API_KEY` and the real Swiss QR creditor values in `backend/.env`.
 
 ## Frontend
 
@@ -39,5 +56,13 @@ uv run ruff check .
 
 ## Swiss QR Invoices
 
-The backend generates Swiss QR invoice PDFs through `POST /payments/swiss-qr/invoices`.
+The backend generates Swiss QR invoice PDFs from admin booking rows through `/admin/bookings/{id}/invoice.pdf`.
 Real creditor bank details must be supplied through backend environment variables before use.
+
+## Booking Flow
+
+1. Guest submits `/booking`; the frontend posts to `POST /bookings`.
+2. Backend stores the booking in PostgreSQL with status `requested`.
+3. Admin opens `/admin`, enters `APP_ADMIN_API_KEY`, reviews bookings, and updates status.
+4. Admin opens the Swiss QR invoice PDF, sends it to the guest, and marks status `invoice_sent`.
+5. After bank payment is visible, admin marks status `paid`, then `confirmed`.

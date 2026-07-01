@@ -1,6 +1,6 @@
 # Bangladeshi Homestay Backend
 
-FastAPI backend for booking support and Swiss QR invoice PDF generation.
+FastAPI backend for booking storage, admin status tracking, and Swiss QR invoice PDF generation.
 
 ## Setup
 
@@ -13,6 +13,20 @@ uv sync
 Add packages only with `uv add`.
 
 ## Run
+
+Start PostgreSQL from the repo root:
+
+```bash
+docker compose up -d postgres
+```
+
+Create local env:
+
+```bash
+cp .env.example .env
+```
+
+Then run the API:
 
 ```bash
 uv run uvicorn app.main:app --reload
@@ -45,3 +59,12 @@ APP_CONTACT_PHONE="+41 77 400 72 56"
 uv run pytest
 uv run ruff check .
 ```
+
+## Flow
+
+- Public booking form: `POST /bookings`
+- Admin list: `GET /admin/bookings`
+- Admin status update: `PATCH /admin/bookings/{id}/status`
+- Admin invoice PDF: `GET /admin/bookings/{id}/invoice.pdf`
+
+Admin endpoints require the `X-Admin-Key` header.

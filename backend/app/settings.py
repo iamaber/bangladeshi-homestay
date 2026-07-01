@@ -19,6 +19,9 @@ class Settings(BaseSettings):
 
     contact_email: str = "hello@gurugasthaus.com"
     contact_phone: str = "+41 77 400 72 56"
+    database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/bangladeshi_homestay"
+    admin_api_key: str | None = None
+    cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
     creditor_iban: str | None = Field(default=None)
     creditor_name: str | None = Field(default=None)
     creditor_street: str | None = Field(default=None)

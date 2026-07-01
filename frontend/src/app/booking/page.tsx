@@ -3,13 +3,27 @@
 import { useMemo, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { contactEmail, createMailtoUrl } from "@/lib/email";
+import { apiRequest, type Booking } from "@/lib/api";
+import { contactEmail } from "@/lib/email";
 import { useI18n } from "@/lib/useI18n";
 
 const prices = {
   standard: { label: "Standard", withoutFlight: 2700, withFlight: 4200 },
   premium: { label: "Premium", withoutFlight: 3700, withFlight: 5200 },
 };
+
+const countries = [
+  ["CH", "Switzerland"],
+  ["DE", "Germany"],
+  ["FR", "France"],
+  ["IT", "Italy"],
+  ["AT", "Austria"],
+  ["NL", "Netherlands"],
+  ["BE", "Belgium"],
+  ["GB", "United Kingdom"],
+  ["US", "United States"],
+  ["BD", "Bangladesh"],
+] as const;
 
 type PackageKey = keyof typeof prices;
 const packageOrder: PackageKey[] = ["premium", "standard"];
@@ -27,6 +41,9 @@ export default function BookingPage() {
   const [arrivalDate, setArrivalDate] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [dateError, setDateError] = useState("");
+  const [submitError, setSubmitError] = useState("");
+  const [booking, setBooking] = useState<Booking | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { copy } = useI18n();
   const today = useMemo(() => new Date().toISOString().slice(0, 10), []);
   const departureMin = arrivalDate ? addDays(arrivalDate, 1) : today;
@@ -36,33 +53,52 @@ export default function BookingPage() {
     return includeFlight ? selected.withFlight : selected.withoutFlight;
   }, [includeFlight, packageKey]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (isSubmitting) {
+      return;
+    }
+
     if (arrivalDate && departureDate && departureDate <= arrivalDate) {
       setDateError(copy.pages.booking.dateError);
       return;
     }
 
     setDateError("");
+    setSubmitError("");
+    setIsSubmitting(true);
     const data = new FormData(event.currentTarget);
-    const subject = copy.pages.booking.subject.replace("{package}", prices[packageKey].label);
 
-    window.location.href = createMailtoUrl(subject, [
-      { label: copy.pages.booking.fields.firstName, value: data.get("firstName") },
-      { label: copy.pages.booking.fields.lastName, value: data.get("lastName") },
-      { label: copy.pages.booking.fields.email, value: data.get("email") },
-      { label: copy.pages.booking.fields.phone, value: data.get("phone") },
-      { label: copy.pages.booking.fields.country, value: data.get("country") },
-      { label: copy.pages.booking.fields.guests, value: data.get("guests") },
-      { label: copy.pages.booking.fields.package, value: prices[packageKey].label },
-      { label: copy.pages.booking.fields.flight, value: includeFlight ? copy.common.included : copy.common.notIncluded },
-      { label: copy.pages.booking.fields.total, value: `CHF ${total.toLocaleString("en-US")}` },
-      { label: copy.pages.booking.fields.arrival, value: data.get("arrivalDate") },
-      { label: copy.pages.booking.fields.departure, value: data.get("departureDate") },
-      { label: copy.pages.booking.fields.notes, value: data.get("notes") },
-    ]);
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    try {
+      const created = await apiRequest<Booking>("/bookings", {
+        method: "POST",
+        body: JSON.stringify({
+          first_name: String(data.get("firstName") || ""),
+          last_name: String(data.get("lastName") || ""),
+          email: String(data.get("email") || ""),
+          phone: String(data.get("phone") || ""),
+          country: String(data.get("country") || ""),
+          street: String(data.get("street") || ""),
+          building_number: String(data.get("buildingNumber") || ""),
+          postal_code: String(data.get("postalCode") || ""),
+          city: String(data.get("city") || ""),
+          guests: Number(data.get("guests") || 1),
+          package: prices[packageKey].label,
+          include_flight: includeFlight,
+          total_chf: total.toFixed(2),
+          arrival_date: String(data.get("arrivalDate") || ""),
+          departure_date: String(data.get("departureDate") || ""),
+          notes: String(data.get("notes") || ""),
+        }),
+      });
+      setBooking(created);
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : "Could not submit booking.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -99,17 +135,17 @@ export default function BookingPage() {
                 <div className="py-12 border-y border-rule">
                   <span className="eyebrow">{copy.pages.booking.opened}</span>
                   <h2 className="font-serif text-[clamp(30px,3vw,44px)] text-ink leading-[1.14] mb-5">
-                    {copy.pages.booking.openedTitle}
+                    Booking request received.
                   </h2>
                   <p className="text-[15px] font-light text-muted leading-[1.85] max-w-620px">
-                    {copy.pages.booking.openedText.replace("{email}", contactEmail)}
+                    We saved your request as {booking?.id}. We will review it and email you the Swiss QR invoice before any payment is due.
                   </p>
                   <div className="mt-7 bg-cream2 p-5">
                     <div className="text-[11px] font-semibold tracking-[0.14em] uppercase text-muted mb-2">
-                      {copy.pages.booking.fallbackTitle}
+                      Need to change something?
                     </div>
                     <p className="text-[13.5px] font-light text-ink2/80 leading-[1.75] mb-4">
-                      {copy.pages.booking.fallbackText}
+                      Email us and include your booking reference.
                     </p>
                     <a href={`mailto:${contactEmail}`} className="btn-fill-sm inline-block">
                       {contactEmail}
@@ -202,8 +238,12 @@ export default function BookingPage() {
                       <Field label={copy.pages.booking.fields.lastName} name="lastName" autoComplete="family-name" />
                       <Field label={copy.pages.booking.fields.email} name="email" type="email" autoComplete="email" />
                       <Field label={copy.pages.booking.fields.phone} name="phone" type="tel" autoComplete="tel" />
-                      <Field label={copy.pages.booking.fields.countryResidence} name="country" autoComplete="country-name" />
+                      <CountryField label={copy.pages.booking.fields.countryResidence} />
                       <Field label={copy.pages.booking.fields.guests} name="guests" type="number" min="1" max="6" defaultValue="1" />
+                      <Field label="Street" name="street" autoComplete="address-line1" />
+                      <Field label="Building number" name="buildingNumber" autoComplete="address-line2" />
+                      <Field label="Postal code" name="postalCode" autoComplete="postal-code" />
+                      <Field label="City" name="city" autoComplete="address-level2" />
                     </div>
                   </section>
 
@@ -290,9 +330,18 @@ export default function BookingPage() {
                       ))}
                     </ol>
                   </div>
-                  <button type="submit" className="btn-cream w-full mt-8 text-center">
-                    {copy.pages.booking.submit}
+                  <button
+                    type="submit"
+                    className="btn-cream w-full mt-8 text-center disabled:cursor-not-allowed disabled:opacity-60"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Submitting..." : copy.pages.booking.submit}
                   </button>
+                  {submitError && (
+                    <p className="mt-4 text-[13px] font-medium text-cream" role="alert">
+                      {submitError}
+                    </p>
+                  )}
                 </aside>
               </form>
             )}
@@ -301,6 +350,30 @@ export default function BookingPage() {
       </main>
       <Footer />
     </>
+  );
+}
+
+function CountryField({ label }: { label: string }) {
+  return (
+    <div>
+      <label htmlFor="country" className="block text-[13px] font-medium text-ink mb-1.5">
+        {label}
+      </label>
+      <select
+        id="country"
+        name="country"
+        required
+        autoComplete="country"
+        className="w-full px-4 py-3 border border-rule bg-cream2 text-ink focus:outline-none focus:ring-1 focus:ring-green/30 focus:border-green transition-colors text-[14px]"
+      >
+        <option value="">Select country</option>
+        {countries.map(([code, name]) => (
+          <option key={code} value={code}>
+            {name}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 }
 
