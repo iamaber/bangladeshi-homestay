@@ -51,7 +51,7 @@ export const siteCopy = {
       bedroomWindow: "Guest bedroom with window in a Bangladeshi host home",
       bedroomBlue: "Guest bedroom in a Bangladeshi host home",
       homeKitchen: "Kitchen inside a Bangladeshi host family home",
-      bhunaKhichuri: "Bangladeshi bhuna khichuri with chicken and vegetables",
+      bhunaKhichuri: "Home-cooked Bangladeshi meal with rice, curry, fish, and vegetables",
       sittingRoom: "Sitting room in a Bangladeshi host family home",
       waterLilies: "Person gathering water lilies in Bangladesh",
       riverside: "Sunset over a Bangladeshi riverside",
