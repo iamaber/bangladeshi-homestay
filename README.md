@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bangladeshi Homestay
 
-## Getting Started
+This repository is split into two applications:
 
-First, run the development server:
+- `frontend/`: static-export Next.js website.
+- `backend/`: FastAPI service for booking support and Swiss QR invoice PDFs.
+
+## Frontend
 
 ```bash
+cd frontend
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Build and verify the static export:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run lint
+npm run build
+npm run verify:export
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Backend
 
-## Learn More
+Use uv for all Python package management. Add packages only with `uv add`.
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+cd backend
+uv sync
+uv run uvicorn app.main:app --reload
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Run backend checks:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+uv run pytest
+uv run ruff check .
+```
 
-## Deploy on Vercel
+## Swiss QR Invoices
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The backend generates Swiss QR invoice PDFs through `POST /payments/swiss-qr/invoices`.
+Real creditor bank details must be supplied through backend environment variables before use.
