@@ -14,11 +14,22 @@ const prices = {
 type PackageKey = keyof typeof prices;
 const packageOrder: PackageKey[] = ["premium", "standard"];
 
+function addDays(date: string, days: number) {
+  const next = new Date(`${date}T00:00:00`);
+  next.setDate(next.getDate() + days);
+  return next.toISOString().slice(0, 10);
+}
+
 export default function BookingPage() {
   const [submitted, setSubmitted] = useState(false);
   const [packageKey, setPackageKey] = useState<PackageKey>("standard");
   const [includeFlight, setIncludeFlight] = useState(false);
+  const [arrivalDate, setArrivalDate] = useState("");
+  const [departureDate, setDepartureDate] = useState("");
+  const [dateError, setDateError] = useState("");
   const { copy } = useI18n();
+  const today = useMemo(() => new Date().toISOString().slice(0, 10), []);
+  const departureMin = arrivalDate ? addDays(arrivalDate, 1) : today;
 
   const total = useMemo(() => {
     const selected = prices[packageKey];
@@ -27,6 +38,12 @@ export default function BookingPage() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (arrivalDate && departureDate && departureDate <= arrivalDate) {
+      setDateError(copy.pages.booking.dateError);
+      return;
+    }
+
+    setDateError("");
     const data = new FormData(event.currentTarget);
     const subject = copy.pages.booking.subject.replace("{package}", prices[packageKey].label);
 
@@ -87,6 +104,17 @@ export default function BookingPage() {
                   <p className="text-[15px] font-light text-muted leading-[1.85] max-w-620px">
                     {copy.pages.booking.openedText.replace("{email}", contactEmail)}
                   </p>
+                  <div className="mt-7 bg-cream2 p-5">
+                    <div className="text-[11px] font-semibold tracking-[0.14em] uppercase text-muted mb-2">
+                      {copy.pages.booking.fallbackTitle}
+                    </div>
+                    <p className="text-[13.5px] font-light text-ink2/80 leading-[1.75] mb-4">
+                      {copy.pages.booking.fallbackText}
+                    </p>
+                    <a href={`mailto:${contactEmail}`} className="btn-fill-sm inline-block">
+                      {contactEmail}
+                    </a>
+                  </div>
                 </div>
                 <div className="bg-green text-cream p-8">
                   <div className="text-[11px] font-semibold tracking-[0.16em] uppercase text-cream/50 mb-5">
@@ -182,9 +210,37 @@ export default function BookingPage() {
                   <section>
                     <h2 className="font-serif text-[24px] text-ink mb-6">{copy.pages.booking.travelPrefs}</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <Field label={copy.pages.booking.fields.arrival} name="arrivalDate" type="date" />
-                      <Field label={copy.pages.booking.fields.departure} name="departureDate" type="date" />
+                      <Field
+                        label={copy.pages.booking.fields.arrival}
+                        name="arrivalDate"
+                        type="date"
+                        min={today}
+                        value={arrivalDate}
+                        onChange={(value) => {
+                          setArrivalDate(value);
+                          if (departureDate && value && departureDate <= value) {
+                            setDepartureDate("");
+                          }
+                          setDateError("");
+                        }}
+                      />
+                      <Field
+                        label={copy.pages.booking.fields.departure}
+                        name="departureDate"
+                        type="date"
+                        min={departureMin}
+                        value={departureDate}
+                        onChange={(value) => {
+                          setDepartureDate(value);
+                          setDateError("");
+                        }}
+                      />
                     </div>
+                    {dateError && (
+                      <p className="mt-3 text-[13px] font-medium text-terra" role="alert">
+                        {dateError}
+                      </p>
+                    )}
                     <div className="mt-5">
                       <label htmlFor="notes" className="block text-[13px] font-medium text-ink mb-1.5">
                         {copy.pages.booking.notesLabel}
@@ -221,6 +277,19 @@ export default function BookingPage() {
                   <p className="text-[12.5px] font-light text-cream/55 leading-[1.7] mt-6">
                     {copy.pages.booking.summaryNote}
                   </p>
+                  <div className="mt-7 border-t border-white/10 pt-6">
+                    <div className="text-[11px] font-semibold tracking-[0.16em] uppercase text-cream/45 mb-4">
+                      {copy.pages.booking.nextTitle}
+                    </div>
+                    <ol className="space-y-3">
+                      {copy.pages.booking.nextSteps.map((step, index) => (
+                        <li key={step} className="flex gap-3 text-[12.5px] font-light leading-[1.6] text-cream/60">
+                          <span className="font-serif text-cream/35">{index + 1}.</span>
+                          <span>{step}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
                   <button type="submit" className="btn-cream w-full mt-8 text-center">
                     {copy.pages.booking.submit}
                   </button>
@@ -243,6 +312,8 @@ function Field({
   min,
   max,
   defaultValue,
+  value,
+  onChange,
 }: {
   label: string;
   name: string;
@@ -251,6 +322,8 @@ function Field({
   min?: string;
   max?: string;
   defaultValue?: string;
+  value?: string;
+  onChange?: (value: string) => void;
 }) {
   return (
     <div>
@@ -266,6 +339,8 @@ function Field({
         min={min}
         max={max}
         defaultValue={defaultValue}
+        value={value}
+        onChange={onChange ? (event) => onChange(event.target.value) : undefined}
         className="w-full px-4 py-3 border border-rule bg-cream2 text-ink placeholder:text-muted/50 focus:outline-none focus:ring-1 focus:ring-green/30 focus:border-green transition-colors text-[14px]"
       />
     </div>

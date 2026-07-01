@@ -63,6 +63,17 @@ export default function Navigation() {
     visible: { opacity: 1, y: 0 },
   };
 
+  const handleLogoClick = () => {
+    setScrolled(false);
+    setMobileOpen(false);
+    setOpenGroup(null);
+    setMobileGroup(null);
+
+    if (isHome) {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    }
+  };
+
   return (
     <>
       <nav
@@ -76,7 +87,7 @@ export default function Navigation() {
           href="/"
           scroll
           aria-label={copy.media.navHome}
-          onClick={() => setScrolled(false)}
+          onClick={handleLogoClick}
           className="no-underline hover:opacity-80 transition-opacity"
         >
           <Image

@@ -88,28 +88,18 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Hero stats */}
+      {/* Human booking note */}
       <motion.div
         initial={{ opacity: 0, y: reduceMotion ? 0 : 26 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease, delay: 0.6 }}
-        className="absolute right-6 lg:right-14 bottom-20 z-10 flex gap-12"
+        className="absolute right-6 lg:right-14 bottom-20 z-10 hidden max-w-[300px] border-t border-cream/20 pt-4 text-right lg:block"
       >
-        <div>
-          <span className="font-serif text-[38px] font-bold text-cream leading-none block">
-            14
-          </span>
-          <div className="text-[11px] font-medium tracking-[0.12em] uppercase text-cream/40 mt-1">
-            {copy.home.heroStats.days}
-          </div>
+        <div className="text-[11px] font-medium tracking-[0.14em] uppercase text-gold-warm mb-2">
+          {copy.home.heroNote.label}
         </div>
-        <div>
-          <span className="font-serif text-[38px] font-bold text-cream leading-none block">
-            CHF 2.7k
-          </span>
-          <div className="text-[11px] font-medium tracking-[0.12em] uppercase text-cream/40 mt-1">
-            {copy.home.heroStats.price}
-          </div>
+        <div className="font-serif text-[20px] leading-[1.45] text-cream">
+          {copy.home.heroNote.text}
         </div>
       </motion.div>
     </section>
