@@ -1,4 +1,6 @@
-export const contactEmail = "hello@gurugasthaus.com";
+import { contact } from "@/lib/contact";
+
+export const contactEmail = contact.email;
 
 type EmailField = {
   label: string;

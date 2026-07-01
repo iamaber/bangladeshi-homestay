@@ -1,10 +1,12 @@
 import type { Lang } from "@/lib/i18n-data";
+import { contact } from "@/lib/contact";
 
 export const brand = {
   name: "Guru Gasthaus",
   first: "Guru",
   second: "Gasthaus",
-  email: "hello@gurugasthaus.com",
+  email: contact.email,
+  phone: contact.phone,
   domain: "gurugasthaus.com",
 };
 
@@ -663,7 +665,7 @@ function shouldKeepOriginal(value: string) {
     value.trim() === "" ||
     /^\d+[.,]?$/.test(value) ||
     /^CHF\b/.test(value) ||
-    [brand.name, brand.email, brand.domain].includes(value) ||
+    [brand.name, brand.email, brand.phone, brand.domain].includes(value) ||
     ["Standard", "Premium", "Bangladesh", "Bangla", "English", "Hindi", "WiFi", "A/C", "FAQ"].includes(value)
   );
 }

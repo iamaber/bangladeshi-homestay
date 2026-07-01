@@ -3,6 +3,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { useState } from "react";
+import { contact } from "@/lib/contact";
 import { contactEmail, createMailtoUrl } from "@/lib/email";
 import { useI18n } from "@/lib/useI18n";
 
@@ -111,6 +112,17 @@ export default function ContactPage() {
                         className="text-[14px] font-light text-ink2 hover:text-green transition-colors"
                       >
                         {contactEmail}
+                      </a>
+                    </div>
+                    <div>
+                      <div className="text-[11px] font-semibold tracking-[0.14em] uppercase text-muted mb-1">
+                        {copy.pages.booking.fields.phone}
+                      </div>
+                      <a
+                        href={`tel:${contact.phone.replace(/\s/g, "")}`}
+                        className="text-[14px] font-light text-ink2 hover:text-green transition-colors"
+                      >
+                        {contact.phone}
                       </a>
                     </div>
                     <div>

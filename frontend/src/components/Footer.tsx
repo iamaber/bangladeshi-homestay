@@ -90,6 +90,12 @@ export default function Footer() {
               >
                 {brand.email}
               </a>
+              <a
+                href={`tel:${brand.phone.replace(/\s/g, "")}`}
+                className="text-[13px] font-light text-cream/45 no-underline hover:text-cream transition-colors"
+              >
+                {brand.phone}
+              </a>
               <span className="text-[12px] font-light text-cream/20 font-serif">
                 {brand.domain}
               </span>
