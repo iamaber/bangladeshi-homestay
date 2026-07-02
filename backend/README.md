@@ -20,21 +20,23 @@ Start PostgreSQL from the repo root:
 docker compose up -d postgres
 ```
 
-Create local env:
+Create the root local env file:
 
 ```bash
+cd ..
 cp .env.example .env
 ```
 
-Then run the API:
+Then run the API from `backend/`:
 
 ```bash
+cd backend
 uv run uvicorn app.main:app --reload
 ```
 
 ## Configuration
 
-Swiss QR invoices require real creditor settings in environment variables:
+Swiss QR invoices require real creditor settings in the root `.env` file:
 
 ```bash
 APP_CREDITOR_IBAN=CH0000000000000000000

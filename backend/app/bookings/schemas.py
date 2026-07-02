@@ -1,9 +1,10 @@
 from datetime import date, datetime
 from decimal import Decimal
 
-from pydantic import BaseModel, Field, ValidationInfo, field_validator
+from pydantic import BaseModel, Field, ValidationInfo, field_validator, model_validator
 
 from app.bookings.models import BookingStatus
+from app.bookings.pricing import expected_total
 
 
 class BookingCreate(BaseModel):
@@ -36,6 +37,15 @@ class BookingCreate(BaseModel):
         if arrival and value <= arrival:
             raise ValueError("departure_date must be after arrival_date")
         return value
+
+    @model_validator(mode="after")
+    def validate_package_total(self) -> "BookingCreate":
+        expected = expected_total(self.package, self.include_flight)
+        if expected is None:
+            raise ValueError("package must be Standard or Premium")
+        if self.total_chf != expected:
+            raise ValueError("total_chf does not match the selected package")
+        return self
 
 
 class BookingStatusUpdate(BaseModel):

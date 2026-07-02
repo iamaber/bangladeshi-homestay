@@ -116,7 +116,30 @@ def test_create_booking_and_update_status(monkeypatch) -> None:
     get_settings.cache_clear()
 
 
-def test_admin_requires_configured_key() -> None:
+def test_booking_rejects_tampered_total(monkeypatch) -> None:
+    monkeypatch.setenv("APP_ADMIN_API_KEY", "test-admin-key")
+    get_settings.cache_clear()
+    engine = create_engine(
+        "sqlite://",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+    TestSessionLocal.configure(bind=engine)
+    Base.metadata.create_all(bind=engine)
+    app.dependency_overrides[get_db] = override_test_db
+    client = TestClient(app)
+    payload = sample_booking_payload()
+    payload["total_chf"] = "1.00"
+
+    response = client.post("/bookings", json=payload)
+
+    assert response.status_code == 422
+    app.dependency_overrides.clear()
+    get_settings.cache_clear()
+
+
+def test_admin_requires_configured_key(monkeypatch) -> None:
+    monkeypatch.setenv("APP_ADMIN_API_KEY", "")
     get_settings.cache_clear()
     client = TestClient(app)
 
@@ -138,6 +161,7 @@ def test_swiss_qr_payload_uses_expected_header_and_addresses() -> None:
 
 
 def test_invoice_endpoint_returns_pdf(monkeypatch) -> None:
+    monkeypatch.setenv("APP_ADMIN_API_KEY", "test-admin-key")
     monkeypatch.setenv("APP_CREDITOR_IBAN", "CH9300762011623852957")
     monkeypatch.setenv("APP_CREDITOR_NAME", "Guru Gasthaus")
     monkeypatch.setenv("APP_CREDITOR_STREET", "Bahnhofstrasse")
@@ -147,7 +171,11 @@ def test_invoice_endpoint_returns_pdf(monkeypatch) -> None:
     get_settings.cache_clear()
     client = TestClient(app)
 
-    response = client.post("/payments/swiss-qr/invoices", json=sample_invoice_payload())
+    response = client.post(
+        "/payments/swiss-qr/invoices",
+        headers={"X-Admin-Key": "test-admin-key"},
+        json=sample_invoice_payload(),
+    )
 
     assert response.status_code == 200
     assert response.headers["content-type"] == "application/pdf"
@@ -155,11 +183,33 @@ def test_invoice_endpoint_returns_pdf(monkeypatch) -> None:
     get_settings.cache_clear()
 
 
-def test_invoice_endpoint_reports_missing_creditor_settings() -> None:
+def test_invoice_endpoint_requires_admin_key(monkeypatch) -> None:
+    monkeypatch.setenv("APP_ADMIN_API_KEY", "test-admin-key")
     get_settings.cache_clear()
     client = TestClient(app)
 
     response = client.post("/payments/swiss-qr/invoices", json=sample_invoice_payload())
+
+    assert response.status_code == 401
+    get_settings.cache_clear()
+
+
+def test_invoice_endpoint_reports_missing_creditor_settings(monkeypatch) -> None:
+    monkeypatch.setenv("APP_ADMIN_API_KEY", "test-admin-key")
+    monkeypatch.setenv("APP_CREDITOR_IBAN", "")
+    monkeypatch.setenv("APP_CREDITOR_NAME", "")
+    monkeypatch.setenv("APP_CREDITOR_STREET", "")
+    monkeypatch.setenv("APP_CREDITOR_BUILDING_NUMBER", "")
+    monkeypatch.setenv("APP_CREDITOR_POSTAL_CODE", "")
+    monkeypatch.setenv("APP_CREDITOR_CITY", "")
+    get_settings.cache_clear()
+    client = TestClient(app)
+
+    response = client.post(
+        "/payments/swiss-qr/invoices",
+        headers={"X-Admin-Key": "test-admin-key"},
+        json=sample_invoice_payload(),
+    )
 
     assert response.status_code == 503
     assert "APP_CREDITOR_IBAN" in response.json()["detail"]

@@ -1,7 +1,10 @@
 from functools import lru_cache
+from pathlib import Path
 
 from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+ROOT_ENV_FILE = Path(__file__).resolve().parents[2] / ".env"
 
 
 class CreditorSettings(BaseModel):
@@ -15,7 +18,7 @@ class CreditorSettings(BaseModel):
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_prefix="APP_", env_file=".env")
+    model_config = SettingsConfigDict(env_prefix="APP_", env_file=ROOT_ENV_FILE, extra="ignore")
 
     contact_email: str = "hello@gurugasthaus.com"
     contact_phone: str = "+41 77 400 72 56"

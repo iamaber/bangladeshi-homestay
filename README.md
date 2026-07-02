@@ -13,14 +13,13 @@ Start PostgreSQL:
 docker compose up -d postgres
 ```
 
-Create env files:
+Create the root env file:
 
 ```bash
-cp backend/.env.example backend/.env
-cp frontend/.env.example frontend/.env.local
+cp .env.example .env
 ```
 
-Set `APP_ADMIN_API_KEY` and the real Swiss QR creditor values in `backend/.env`.
+Set `APP_ADMIN_API_KEY` and the real Swiss QR creditor values in `.env`.
 
 ## Frontend
 
@@ -57,7 +56,7 @@ uv run ruff check .
 ## Swiss QR Invoices
 
 The backend generates Swiss QR invoice PDFs from admin booking rows through `/admin/bookings/{id}/invoice.pdf`.
-Real creditor bank details must be supplied through backend environment variables before use.
+Real creditor bank details must be supplied in the root `.env` file before use.
 
 ## Booking Flow
 

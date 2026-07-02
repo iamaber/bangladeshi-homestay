@@ -1,12 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 
+from app.admin import require_admin
 from app.payments.models import SwissQrInvoiceRequest
 from app.payments.pdf import render_swiss_qr_invoice_pdf
 from app.payments.swiss_qr import build_swiss_qr_payload
 from app.settings import Settings, get_settings
 
 
-router = APIRouter(prefix="/payments", tags=["payments"])
+router = APIRouter(prefix="/payments", tags=["payments"], dependencies=[Depends(require_admin)])
 
 
 @router.post("/swiss-qr/invoices", response_class=Response)
