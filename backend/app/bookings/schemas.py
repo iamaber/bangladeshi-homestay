@@ -7,7 +7,7 @@ from app.bookings.models import BookingStatus
 from app.bookings.pricing import expected_total
 
 
-class BookingCreate(BaseModel):
+class BookingBase(BaseModel):
     first_name: str = Field(min_length=1, max_length=80)
     last_name: str = Field(min_length=1, max_length=80)
     email: str = Field(min_length=3, max_length=255)
@@ -48,11 +48,16 @@ class BookingCreate(BaseModel):
         return self
 
 
+class BookingCreate(BookingBase):
+    spam_token: str = Field(min_length=1)
+    company_website: str | None = Field(default=None, max_length=200)
+
+
 class BookingStatusUpdate(BaseModel):
     status: BookingStatus
 
 
-class BookingRead(BookingCreate):
+class BookingRead(BookingBase):
     id: str
     status: BookingStatus
     created_at: datetime

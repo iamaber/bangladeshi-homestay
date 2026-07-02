@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { apiRequest, type Booking } from "@/lib/api";
@@ -28,6 +28,10 @@ const countries = [
 type PackageKey = keyof typeof prices;
 const packageOrder: PackageKey[] = ["premium", "standard"];
 
+type SpamTokenResponse = {
+  token: string;
+};
+
 function addDays(date: string, days: number) {
   const next = new Date(`${date}T00:00:00`);
   next.setDate(next.getDate() + days);
@@ -44,6 +48,7 @@ export default function BookingPage() {
   const [submitError, setSubmitError] = useState("");
   const [booking, setBooking] = useState<Booking | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [spamToken, setSpamToken] = useState("");
   const { copy } = useI18n();
   const today = useMemo(() => new Date().toISOString().slice(0, 10), []);
   const departureMin = arrivalDate ? addDays(arrivalDate, 1) : today;
@@ -52,6 +57,18 @@ export default function BookingPage() {
     const selected = prices[packageKey];
     return includeFlight ? selected.withFlight : selected.withoutFlight;
   }, [includeFlight, packageKey]);
+
+  useEffect(() => {
+    refreshSpamToken().catch(() => {
+      setSubmitError("Could not prepare the booking form. Please refresh the page.");
+    });
+  }, []);
+
+  async function refreshSpamToken() {
+    const response = await apiRequest<SpamTokenResponse>("/bookings/spam-token");
+    setSpamToken(response.token);
+    return response.token;
+  }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -70,9 +87,12 @@ export default function BookingPage() {
     const data = new FormData(event.currentTarget);
 
     try {
+      const token = spamToken || (await refreshSpamToken());
       const created = await apiRequest<Booking>("/bookings", {
         method: "POST",
         body: JSON.stringify({
+          spam_token: token,
+          company_website: String(data.get("companyWebsite") || ""),
           first_name: String(data.get("firstName") || ""),
           last_name: String(data.get("lastName") || ""),
           email: String(data.get("email") || ""),
@@ -96,6 +116,7 @@ export default function BookingPage() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : "Could not submit booking.");
+      refreshSpamToken().catch(() => undefined);
     } finally {
       setIsSubmitting(false);
     }
@@ -168,6 +189,14 @@ export default function BookingPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 lg:gap-16">
+                <input
+                  type="text"
+                  name="companyWebsite"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="sr-only"
+                />
                 <div className="space-y-12">
                   <section>
                     <h2 className="font-serif text-[24px] text-ink mb-6">{copy.pages.booking.choosePackage}</h2>

@@ -1,18 +1,31 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.bookings.models import Booking
 from app.bookings.schemas import BookingCreate, BookingRead, BookingStatusUpdate
+from app.bookings.spam import create_spam_token, validate_booking_submission
 from app.database import get_db
+from app.settings import Settings, get_settings
 
 
 router = APIRouter(prefix="/bookings", tags=["bookings"])
 
 
+@router.get("/spam-token")
+def booking_spam_token(settings: Settings = Depends(get_settings)) -> dict[str, str]:
+    return {"token": create_spam_token(settings)}
+
+
 @router.post("", response_model=BookingRead, status_code=status.HTTP_201_CREATED)
-def create_booking(payload: BookingCreate, db: Session = Depends(get_db)) -> Booking:
-    booking = Booking(**payload.model_dump())
+def create_booking(
+    payload: BookingCreate,
+    request: Request,
+    db: Session = Depends(get_db),
+    settings: Settings = Depends(get_settings),
+) -> Booking:
+    validate_booking_submission(request, payload, db, settings)
+    booking = Booking(**payload.model_dump(exclude={"spam_token", "company_website"}))
     db.add(booking)
     db.commit()
     db.refresh(booking)

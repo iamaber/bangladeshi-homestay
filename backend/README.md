@@ -55,6 +55,17 @@ APP_CONTACT_EMAIL=hello@gurugasthaus.com
 APP_CONTACT_PHONE="+41 77 400 72 56"
 ```
 
+Booking spam protection values:
+
+```bash
+APP_BOOKING_SPAM_SECRET=change-this-booking-spam-secret
+APP_BOOKING_MIN_SUBMIT_SECONDS=4
+APP_BOOKING_TOKEN_MAX_AGE_SECONDS=1800
+APP_BOOKING_IP_LIMIT_PER_HOUR=5
+APP_BOOKING_EMAIL_LIMIT_PER_DAY=2
+APP_TRUST_PROXY_HEADERS=false
+```
+
 ## Checks
 
 ```bash

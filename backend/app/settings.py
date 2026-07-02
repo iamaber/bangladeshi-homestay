@@ -25,6 +25,12 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/bangladeshi_homestay"
     admin_api_key: str | None = None
     cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
+    booking_spam_secret: str | None = None
+    booking_min_submit_seconds: int = 4
+    booking_token_max_age_seconds: int = 1800
+    booking_ip_limit_per_hour: int = 5
+    booking_email_limit_per_day: int = 2
+    trust_proxy_headers: bool = False
     creditor_iban: str | None = Field(default=None)
     creditor_name: str | None = Field(default=None)
     creditor_street: str | None = Field(default=None)
@@ -59,6 +65,13 @@ class Settings(BaseSettings):
             "APP_CREDITOR_CITY": self.creditor_city,
         }
         return [name for name, value in fields.items() if not value]
+
+    def spam_secret(self) -> str:
+        if self.booking_spam_secret:
+            return self.booking_spam_secret
+        if self.admin_api_key:
+            return self.admin_api_key
+        return "local-booking-spam-secret"
 
 
 @lru_cache

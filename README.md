@@ -19,7 +19,7 @@ Create the root env file:
 cp .env.example .env
 ```
 
-Set `APP_ADMIN_API_KEY` and the real Swiss QR creditor values in `.env`.
+Set `APP_ADMIN_API_KEY`, `APP_BOOKING_SPAM_SECRET`, and the real Swiss QR creditor values in `.env`.
 
 ## Frontend
 
@@ -57,6 +57,21 @@ uv run ruff check .
 
 The backend generates Swiss QR invoice PDFs from admin booking rows through `/admin/bookings/{id}/invoice.pdf`.
 Real creditor bank details must be supplied in the root `.env` file before use.
+
+## Booking Spam Protection
+
+The public booking form uses a signed spam token, a hidden honeypot field, minimum submit timing, and IP/email rate limits. Configure these root `.env` values before production:
+
+```bash
+APP_BOOKING_SPAM_SECRET=change-this-booking-spam-secret
+APP_BOOKING_MIN_SUBMIT_SECONDS=4
+APP_BOOKING_TOKEN_MAX_AGE_SECONDS=1800
+APP_BOOKING_IP_LIMIT_PER_HOUR=5
+APP_BOOKING_EMAIL_LIMIT_PER_DAY=2
+APP_TRUST_PROXY_HEADERS=false
+```
+
+Set `APP_TRUST_PROXY_HEADERS=true` only when the API is behind a trusted reverse proxy that sets `X-Forwarded-For`.
 
 ## Booking Flow
 

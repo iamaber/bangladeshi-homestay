@@ -3,7 +3,7 @@ import uuid
 from datetime import UTC, date, datetime
 from decimal import Decimal
 
-from sqlalchemy import Date, DateTime, Enum, Numeric, String, Text
+from sqlalchemy import Boolean, Date, DateTime, Enum, Integer, Numeric, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
@@ -58,3 +58,14 @@ class Booking(Base):
         onupdate=utc_now,
         nullable=False,
     )
+
+
+class BookingSubmissionAttempt(Base):
+    __tablename__ = "booking_submission_attempts"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    ip_hash: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    email_hash: Mapped[str | None] = mapped_column(String(64), index=True)
+    accepted: Mapped[bool] = mapped_column(Boolean, nullable=False)
+    reason: Mapped[str] = mapped_column(String(40), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False, index=True)
