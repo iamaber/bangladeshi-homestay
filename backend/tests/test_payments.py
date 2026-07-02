@@ -68,6 +68,7 @@ def sample_booking_payload() -> dict[str, object]:
         "last_name": "Baumann",
         "email": "sophie@example.com",
         "phone": "+41 77 400 72 56",
+        "host_id": "featured-host-family",
         "country": "CH",
         "street": "Rue du Lac",
         "building_number": "7",
@@ -126,6 +127,110 @@ def test_create_booking_and_update_status(monkeypatch) -> None:
     )
     assert updated.status_code == 200
     assert updated.json()["status"] == "paid"
+    app.dependency_overrides.clear()
+    get_settings.cache_clear()
+
+
+def test_booking_rejects_unavailable_host(monkeypatch) -> None:
+    monkeypatch.setenv("APP_BOOKING_MIN_SUBMIT_SECONDS", "0")
+    get_settings.cache_clear()
+    client = make_test_client()
+    payload = sample_booking_payload()
+    payload["host_id"] = "future-host-family"
+
+    response = client.post("/bookings", json=booking_payload_with_token(client, payload))
+
+    assert response.status_code == 422
+    assert response.json()["detail"] == "Selected host is not available for booking."
+    app.dependency_overrides.clear()
+    get_settings.cache_clear()
+
+
+def test_booking_rejects_blackout_overlap(monkeypatch) -> None:
+    monkeypatch.setenv("APP_ADMIN_API_KEY", "test-admin-key")
+    monkeypatch.setenv("APP_BOOKING_MIN_SUBMIT_SECONDS", "0")
+    get_settings.cache_clear()
+    client = make_test_client()
+    blackout = client.post(
+        "/admin/hosts/blackouts",
+        headers={"X-Admin-Key": "test-admin-key"},
+        json={
+            "host_id": "featured-host-family",
+            "start_date": "2026-09-10",
+            "end_date": "2026-09-20",
+            "note": "Unavailable",
+        },
+    )
+
+    response = client.post("/bookings", json=booking_payload_with_token(client))
+
+    assert blackout.status_code == 201
+    assert response.status_code == 422
+    assert response.json()["detail"] == "Selected host is not available for those dates."
+    app.dependency_overrides.clear()
+    get_settings.cache_clear()
+
+
+def test_admin_can_delete_blackout(monkeypatch) -> None:
+    monkeypatch.setenv("APP_ADMIN_API_KEY", "test-admin-key")
+    get_settings.cache_clear()
+    client = make_test_client()
+    created = client.post(
+        "/admin/hosts/blackouts",
+        headers={"X-Admin-Key": "test-admin-key"},
+        json={
+            "host_id": "featured-host-family",
+            "start_date": "2026-10-01",
+            "end_date": "2026-10-05",
+        },
+    )
+
+    deleted = client.delete(
+        f"/admin/hosts/blackouts/{created.json()['id']}",
+        headers={"X-Admin-Key": "test-admin-key"},
+    )
+    listed = client.get("/admin/hosts/blackouts", headers={"X-Admin-Key": "test-admin-key"})
+
+    assert deleted.status_code == 204
+    assert listed.status_code == 200
+    assert listed.json() == []
+    app.dependency_overrides.clear()
+    get_settings.cache_clear()
+
+
+def test_booking_creation_sends_emails_when_enabled(monkeypatch) -> None:
+    sent = []
+
+    def fake_send_booking_emails(booking, settings):
+        sent.append((booking.id, settings.emails_enabled))
+
+    monkeypatch.setenv("APP_BOOKING_MIN_SUBMIT_SECONDS", "0")
+    monkeypatch.setenv("APP_EMAILS_ENABLED", "true")
+    monkeypatch.setattr("app.bookings.routes.send_booking_emails", fake_send_booking_emails)
+    get_settings.cache_clear()
+    client = make_test_client()
+
+    response = client.post("/bookings", json=booking_payload_with_token(client))
+
+    assert response.status_code == 201
+    assert sent == [(response.json()["id"], True)]
+    app.dependency_overrides.clear()
+    get_settings.cache_clear()
+
+
+def test_booking_creation_keeps_booking_when_email_fails(monkeypatch) -> None:
+    def failing_send_booking_emails(booking, settings):
+        raise ValueError("Missing SMTP settings: APP_SMTP_HOST")
+
+    monkeypatch.setenv("APP_BOOKING_MIN_SUBMIT_SECONDS", "0")
+    monkeypatch.setenv("APP_EMAILS_ENABLED", "true")
+    monkeypatch.setattr("app.bookings.routes.send_booking_emails", failing_send_booking_emails)
+    get_settings.cache_clear()
+    client = make_test_client()
+
+    response = client.post("/bookings", json=booking_payload_with_token(client))
+
+    assert response.status_code == 201
     app.dependency_overrides.clear()
     get_settings.cache_clear()
 
@@ -327,3 +432,62 @@ def test_invoice_endpoint_reports_missing_creditor_settings(monkeypatch) -> None
 
     assert response.status_code == 503
     assert "APP_CREDITOR_IBAN" in response.json()["detail"]
+
+
+def test_send_invoice_endpoint_requires_smtp_settings(monkeypatch) -> None:
+    monkeypatch.setenv("APP_ADMIN_API_KEY", "test-admin-key")
+    monkeypatch.setenv("APP_BOOKING_MIN_SUBMIT_SECONDS", "0")
+    monkeypatch.setenv("APP_CREDITOR_IBAN", "CH9300762011623852957")
+    monkeypatch.setenv("APP_CREDITOR_NAME", "Guru Gasthaus")
+    monkeypatch.setenv("APP_CREDITOR_STREET", "Bahnhofstrasse")
+    monkeypatch.setenv("APP_CREDITOR_BUILDING_NUMBER", "1")
+    monkeypatch.setenv("APP_CREDITOR_POSTAL_CODE", "8001")
+    monkeypatch.setenv("APP_CREDITOR_CITY", "Zurich")
+    monkeypatch.setenv("APP_SMTP_HOST", "")
+    monkeypatch.setenv("APP_SMTP_USERNAME", "")
+    monkeypatch.setenv("APP_SMTP_PASSWORD", "")
+    monkeypatch.setenv("APP_SMTP_FROM_EMAIL", "")
+    get_settings.cache_clear()
+    client = make_test_client()
+    booking = client.post("/bookings", json=booking_payload_with_token(client))
+
+    response = client.post(
+        f"/admin/bookings/{booking.json()['id']}/send-invoice",
+        headers={"X-Admin-Key": "test-admin-key"},
+    )
+
+    assert response.status_code == 503
+    assert "APP_SMTP_HOST" in response.json()["detail"]
+    app.dependency_overrides.clear()
+    get_settings.cache_clear()
+
+
+def test_send_invoice_endpoint_marks_invoice_sent(monkeypatch) -> None:
+    sent = []
+
+    def fake_send_invoice_email(booking, pdf, settings):
+        sent.append((booking.id, pdf.startswith(b"%PDF"), settings.admin_api_key))
+
+    monkeypatch.setenv("APP_ADMIN_API_KEY", "test-admin-key")
+    monkeypatch.setenv("APP_BOOKING_MIN_SUBMIT_SECONDS", "0")
+    monkeypatch.setenv("APP_CREDITOR_IBAN", "CH9300762011623852957")
+    monkeypatch.setenv("APP_CREDITOR_NAME", "Guru Gasthaus")
+    monkeypatch.setenv("APP_CREDITOR_STREET", "Bahnhofstrasse")
+    monkeypatch.setenv("APP_CREDITOR_BUILDING_NUMBER", "1")
+    monkeypatch.setenv("APP_CREDITOR_POSTAL_CODE", "8001")
+    monkeypatch.setenv("APP_CREDITOR_CITY", "Zurich")
+    monkeypatch.setattr("app.admin_routes.send_invoice_email", fake_send_invoice_email)
+    get_settings.cache_clear()
+    client = make_test_client()
+    booking = client.post("/bookings", json=booking_payload_with_token(client))
+
+    response = client.post(
+        f"/admin/bookings/{booking.json()['id']}/send-invoice",
+        headers={"X-Admin-Key": "test-admin-key"},
+    )
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "invoice_sent"
+    assert sent == [(booking.json()["id"], True, "test-admin-key")]
+    app.dependency_overrides.clear()
+    get_settings.cache_clear()

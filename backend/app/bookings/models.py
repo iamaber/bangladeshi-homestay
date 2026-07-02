@@ -39,6 +39,7 @@ class Booking(Base):
     last_name: Mapped[str] = mapped_column(String(80), nullable=False)
     email: Mapped[str] = mapped_column(String(255), nullable=False)
     phone: Mapped[str] = mapped_column(String(40), nullable=False)
+    host_id: Mapped[str] = mapped_column(String(80), default="featured-host-family", nullable=False)
     country: Mapped[str] = mapped_column(String(2), nullable=False)
     street: Mapped[str] = mapped_column(String(120), nullable=False)
     building_number: Mapped[str] = mapped_column(String(20), nullable=False)
@@ -69,3 +70,14 @@ class BookingSubmissionAttempt(Base):
     accepted: Mapped[bool] = mapped_column(Boolean, nullable=False)
     reason: Mapped[str] = mapped_column(String(40), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False, index=True)
+
+
+class HostBlackoutDate(Base):
+    __tablename__ = "host_blackout_dates"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    host_id: Mapped[str] = mapped_column(String(80), nullable=False, index=True)
+    start_date: Mapped[date] = mapped_column(Date, nullable=False)
+    end_date: Mapped[date] = mapped_column(Date, nullable=False)
+    note: Mapped[str | None] = mapped_column(String(255))
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)

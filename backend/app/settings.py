@@ -31,6 +31,14 @@ class Settings(BaseSettings):
     booking_ip_limit_per_hour: int = 5
     booking_email_limit_per_day: int = 2
     trust_proxy_headers: bool = False
+    emails_enabled: bool = False
+    smtp_host: str | None = None
+    smtp_port: int = 587
+    smtp_username: str | None = None
+    smtp_password: str | None = None
+    smtp_from_email: str | None = None
+    smtp_from_name: str = "Guru Gasthaus"
+    admin_notification_email: str | None = None
     creditor_iban: str | None = Field(default=None)
     creditor_name: str | None = Field(default=None)
     creditor_street: str | None = Field(default=None)
@@ -72,6 +80,15 @@ class Settings(BaseSettings):
         if self.admin_api_key:
             return self.admin_api_key
         return "local-booking-spam-secret"
+
+    def missing_smtp_fields(self) -> list[str]:
+        fields = {
+            "APP_SMTP_HOST": self.smtp_host,
+            "APP_SMTP_USERNAME": self.smtp_username,
+            "APP_SMTP_PASSWORD": self.smtp_password,
+            "APP_SMTP_FROM_EMAIL": self.smtp_from_email,
+        }
+        return [name for name, value in fields.items() if not value]
 
 
 @lru_cache

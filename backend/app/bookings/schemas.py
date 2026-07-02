@@ -12,6 +12,7 @@ class BookingBase(BaseModel):
     last_name: str = Field(min_length=1, max_length=80)
     email: str = Field(min_length=3, max_length=255)
     phone: str = Field(min_length=3, max_length=40)
+    host_id: str = Field(default="featured-host-family", min_length=1, max_length=80)
     country: str = Field(min_length=2, max_length=2)
     street: str = Field(min_length=1, max_length=120)
     building_number: str = Field(min_length=1, max_length=20)
@@ -55,6 +56,32 @@ class BookingCreate(BookingBase):
 
 class BookingStatusUpdate(BaseModel):
     status: BookingStatus
+
+
+class HostBlackoutCreate(BaseModel):
+    host_id: str = Field(min_length=1, max_length=80)
+    start_date: date
+    end_date: date
+    note: str | None = Field(default=None, max_length=255)
+
+    @model_validator(mode="after")
+    def validate_dates(self) -> "HostBlackoutCreate":
+        if self.end_date < self.start_date:
+            raise ValueError("end_date must be on or after start_date")
+        return self
+
+
+class HostBlackoutRead(HostBlackoutCreate):
+    id: int
+    created_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class HostAvailabilityRead(BaseModel):
+    host_id: str
+    bookable: bool
+    blackouts: list[HostBlackoutRead]
 
 
 class BookingRead(BookingBase):
