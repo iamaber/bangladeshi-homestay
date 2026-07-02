@@ -3,6 +3,7 @@
 import SectionReveal from "@/components/SectionReveal";
 import Image from "next/image";
 import Link from "next/link";
+import { defaultHostId } from "@/lib/hosts";
 import { assetPath } from "@/lib/paths";
 import { useI18n } from "@/lib/useI18n";
 
@@ -79,7 +80,7 @@ export default function HostFamily() {
               ))}
 
               <div className="mt-8">
-                <Link href="/booking?host=featured-host-family" className="btn-fill-sm inline-block">
+                <Link href={`/booking?host=${defaultHostId}`} className="btn-fill-sm inline-block">
                   {copy.common.requestStay}
                 </Link>
               </div>

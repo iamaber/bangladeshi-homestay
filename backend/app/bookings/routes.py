@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.bookings.availability import ensure_host_bookable, list_blackouts
+from app.bookings.availability import host_unavailability_reason, list_blackouts
 from app.bookings.hosts import host_for_id
 from app.bookings.models import Booking
 from app.bookings.schemas import (
@@ -15,7 +15,7 @@ from app.bookings.schemas import (
 )
 from app.bookings.spam import create_spam_token, validate_booking_submission
 from app.database import get_db
-from app.email import send_booking_emails
+from app.email import EmailConfigurationError, EmailDeliveryError, send_booking_emails
 from app.settings import Settings, get_settings
 
 
@@ -49,14 +49,25 @@ def create_booking(
     settings: Settings = Depends(get_settings),
 ) -> Booking:
     validate_booking_submission(request, payload, db, settings)
-    ensure_host_bookable(payload, db)
+    unavailability_reason = host_unavailability_reason(
+        db,
+        payload.host_id,
+        payload.arrival_date,
+        payload.departure_date,
+    )
+    if unavailability_reason:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail=unavailability_reason,
+        )
+
     booking = Booking(**payload.model_dump(exclude={"spam_token", "company_website"}))
     db.add(booking)
     db.commit()
     db.refresh(booking)
     try:
         send_booking_emails(booking, settings)
-    except Exception:
+    except (EmailConfigurationError, EmailDeliveryError):
         logger.exception("Booking %s was saved, but booking email delivery failed", booking.id)
     return booking
 

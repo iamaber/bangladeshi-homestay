@@ -4,26 +4,9 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
+import { hosts } from "@/lib/hosts";
 import { assetPath } from "@/lib/paths";
 import { useI18n } from "@/lib/useI18n";
-
-const hosts = [
-  {
-    id: "featured-host-family",
-    available: true,
-    image: assetPath("/images/host-home-entrance.jpeg"),
-  },
-  {
-    id: "future-host-family",
-    available: false,
-    image: assetPath("/images/family-living-dining-room.jpeg"),
-  },
-  {
-    id: "seasonal-host-family",
-    available: false,
-    image: assetPath("/images/riverside-sunset.jpeg"),
-  },
-];
 
 export default function HostsPage() {
   const { copy } = useI18n();
@@ -58,7 +41,7 @@ export default function HostsPage() {
                 >
                   <div className="aspect-[3/2] overflow-hidden relative">
                     <Image
-                      src={host.image}
+                      src={assetPath(host.image)}
                       alt={`${name} ${copy.media.hostPreview}`}
                       fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"

@@ -53,6 +53,12 @@ uv run pytest
 uv run ruff check .
 ```
 
+Upgrade an existing database after pulling schema changes:
+
+```bash
+uv run python scripts/upgrade_db.py
+```
+
 ## Swiss QR Invoices
 
 The backend generates Swiss QR invoice PDFs from admin booking rows through `/admin/bookings/{id}/invoice.pdf`.

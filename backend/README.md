@@ -34,6 +34,12 @@ cd backend
 uv run uvicorn app.main:app --reload
 ```
 
+For an existing database, apply schema upgrades before starting the new version:
+
+```bash
+uv run python scripts/upgrade_db.py
+```
+
 ## Configuration
 
 Swiss QR invoices require real creditor settings in the root `.env` file:

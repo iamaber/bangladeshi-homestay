@@ -5,6 +5,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { apiRequest, type Booking } from "@/lib/api";
 import { contactEmail } from "@/lib/email";
+import { defaultHostId, isHostId } from "@/lib/hosts";
 import { useI18n } from "@/lib/useI18n";
 
 const prices = {
@@ -44,9 +45,10 @@ export default function BookingPage() {
   const [includeFlight, setIncludeFlight] = useState(false);
   const [hostId] = useState(() => {
     if (typeof window === "undefined") {
-      return "featured-host-family";
+      return defaultHostId;
     }
-    return new URLSearchParams(window.location.search).get("host") || "featured-host-family";
+    const requestedHost = new URLSearchParams(window.location.search).get("host") || "";
+    return isHostId(requestedHost) ? requestedHost : defaultHostId;
   });
   const [arrivalDate, setArrivalDate] = useState("");
   const [departureDate, setDepartureDate] = useState("");

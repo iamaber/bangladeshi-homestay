@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
 from app.database import Base, get_db
+from app.email import EmailConfigurationError
 from app.main import app
 from app.bookings.models import BookingStatus, BookingSubmissionAttempt
 from app.payments.models import StructuredAddress, SwissQrInvoiceRequest
@@ -220,7 +221,7 @@ def test_booking_creation_sends_emails_when_enabled(monkeypatch) -> None:
 
 def test_booking_creation_keeps_booking_when_email_fails(monkeypatch) -> None:
     def failing_send_booking_emails(booking, settings):
-        raise ValueError("Missing SMTP settings: APP_SMTP_HOST")
+        raise EmailConfigurationError("Missing SMTP settings: APP_SMTP_HOST")
 
     monkeypatch.setenv("APP_BOOKING_MIN_SUBMIT_SECONDS", "0")
     monkeypatch.setenv("APP_EMAILS_ENABLED", "true")
@@ -476,7 +477,7 @@ def test_send_invoice_endpoint_marks_invoice_sent(monkeypatch) -> None:
     monkeypatch.setenv("APP_CREDITOR_BUILDING_NUMBER", "1")
     monkeypatch.setenv("APP_CREDITOR_POSTAL_CODE", "8001")
     monkeypatch.setenv("APP_CREDITOR_CITY", "Zurich")
-    monkeypatch.setattr("app.admin_routes.send_invoice_email", fake_send_invoice_email)
+    monkeypatch.setattr("app.invoices.send_invoice_email", fake_send_invoice_email)
     get_settings.cache_clear()
     client = make_test_client()
     booking = client.post("/bookings", json=booking_payload_with_token(client))

@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
+import { defaultHostId, isHostId } from "@/lib/hosts";
 import { assetPath } from "@/lib/paths";
 import { useI18n } from "@/lib/useI18n";
 
@@ -14,7 +15,7 @@ const openMonths = ["Feb", "Mar", "May", "Jun", "Aug", "Sep", "Nov", "Dec"];
 export default function HostProfileClient() {
   const { copy } = useI18n();
   const params = useParams<{ id: string }>();
-  const hostId = params.id || "featured-host-family";
+  const hostId = isHostId(params.id) ? params.id : defaultHostId;
   const months = copy.pages.hostProfile.months;
 
   return (

@@ -5,6 +5,14 @@ from app.bookings.models import Booking
 from app.settings import Settings
 
 
+class EmailDeliveryError(RuntimeError):
+    pass
+
+
+class EmailConfigurationError(ValueError):
+    pass
+
+
 def send_booking_emails(booking: Booking, settings: Settings) -> None:
     if not settings.emails_enabled:
         return
@@ -60,7 +68,7 @@ def ensure_smtp_configured(settings: Settings) -> None:
     missing = settings.missing_smtp_fields()
     if missing:
         joined = ", ".join(missing)
-        raise ValueError(f"Missing SMTP settings: {joined}")
+        raise EmailConfigurationError(f"Missing SMTP settings: {joined}")
 
 
 def send_email(
@@ -88,7 +96,10 @@ def send_email(
             filename=attachment_name,
         )
 
-    with smtplib.SMTP(settings.smtp_host or "", settings.smtp_port, timeout=20) as smtp:
-        smtp.starttls()
-        smtp.login(settings.smtp_username or "", settings.smtp_password or "")
-        smtp.send_message(message)
+    try:
+        with smtplib.SMTP(settings.smtp_host or "", settings.smtp_port, timeout=20) as smtp:
+            smtp.starttls()
+            smtp.login(settings.smtp_username or "", settings.smtp_password or "")
+            smtp.send_message(message)
+    except (OSError, smtplib.SMTPException) as error:
+        raise EmailDeliveryError(str(error)) from error

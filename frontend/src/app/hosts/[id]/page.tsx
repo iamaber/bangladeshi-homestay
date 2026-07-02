@@ -1,11 +1,8 @@
 import HostProfileClient from "./HostProfileClient";
+import { hosts } from "@/lib/hosts";
 
 export function generateStaticParams() {
-  return [
-    { id: "featured-host-family" },
-    { id: "future-host-family" },
-    { id: "seasonal-host-family" },
-  ];
+  return hosts.map((host) => ({ id: host.id }));
 }
 
 export default function HostProfilePage() {
