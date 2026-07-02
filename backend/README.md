@@ -66,6 +66,19 @@ APP_BOOKING_EMAIL_LIMIT_PER_DAY=2
 APP_TRUST_PROXY_HEADERS=false
 ```
 
+SMTP email values:
+
+```bash
+APP_EMAILS_ENABLED=false
+APP_SMTP_HOST=smtp.example.com
+APP_SMTP_PORT=587
+APP_SMTP_USERNAME=change-this-smtp-username
+APP_SMTP_PASSWORD=change-this-smtp-password
+APP_SMTP_FROM_EMAIL=hello@gurugasthaus.com
+APP_SMTP_FROM_NAME="Guru Gasthaus"
+APP_ADMIN_NOTIFICATION_EMAIL=hello@gurugasthaus.com
+```
+
 ## Checks
 
 ```bash
@@ -79,5 +92,7 @@ uv run ruff check .
 - Admin list: `GET /admin/bookings`
 - Admin status update: `PATCH /admin/bookings/{id}/status`
 - Admin invoice PDF: `GET /admin/bookings/{id}/invoice.pdf`
+- Admin invoice email: `POST /admin/bookings/{id}/send-invoice`
+- Admin host blackout list/create/delete: `/admin/hosts/blackouts`
 
 Admin endpoints require the `X-Admin-Key` header.
