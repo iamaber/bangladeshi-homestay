@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useI18n } from "@/lib/useI18n";
 import { assetPath } from "@/lib/paths";
@@ -33,10 +34,13 @@ export default function Hero() {
     <section ref={sectionRef} className="min-h-screen relative flex flex-col justify-end overflow-hidden">
       {/* Background image with scroll-linked parallax */}
       <motion.div className="absolute inset-0" style={{ y: reduceMotion ? 0 : bgY }}>
-        <img
+        <Image
           src={assetPath("/images/river-boat-sunset.jpeg")}
           alt={copy.media.heroRiver}
-          className="w-full h-[118%] object-cover scale-105"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-[#0e2218]/90 via-green/80 to-[#0e2218]/70" />
       </motion.div>

@@ -42,6 +42,12 @@ export default function BookingPage() {
   const [submitted, setSubmitted] = useState(false);
   const [packageKey, setPackageKey] = useState<PackageKey>("standard");
   const [includeFlight, setIncludeFlight] = useState(false);
+  const [hostId] = useState(() => {
+    if (typeof window === "undefined") {
+      return "featured-host-family";
+    }
+    return new URLSearchParams(window.location.search).get("host") || "featured-host-family";
+  });
   const [arrivalDate, setArrivalDate] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [dateError, setDateError] = useState("");
@@ -93,6 +99,7 @@ export default function BookingPage() {
         body: JSON.stringify({
           spam_token: token,
           company_website: String(data.get("companyWebsite") || ""),
+          host_id: hostId,
           first_name: String(data.get("firstName") || ""),
           last_name: String(data.get("lastName") || ""),
           email: String(data.get("email") || ""),

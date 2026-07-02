@@ -15,6 +15,7 @@ export type Booking = {
   last_name: string;
   email: string;
   phone: string;
+  host_id: string;
   country: string;
   street: string;
   building_number: string;
@@ -29,6 +30,15 @@ export type Booking = {
   notes?: string | null;
   created_at: string;
   updated_at: string;
+};
+
+export type HostBlackout = {
+  id: number;
+  host_id: string;
+  start_date: string;
+  end_date: string;
+  note?: string | null;
+  created_at: string;
 };
 
 export async function apiRequest<T>(

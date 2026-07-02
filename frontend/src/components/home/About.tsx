@@ -1,6 +1,7 @@
 "use client";
 
 import SectionReveal from "@/components/SectionReveal";
+import Image from "next/image";
 import { useI18n } from "@/lib/useI18n";
 import { assetPath } from "@/lib/paths";
 
@@ -41,11 +42,13 @@ export default function About() {
             </div>
 
             <div>
-              <div className="aspect-[4/5] overflow-hidden">
-                <img
+              <div className="relative aspect-[4/5] overflow-hidden">
+                <Image
                   src={assetPath("/images/family-living-dining-room.jpeg")}
                   alt={copy.media.familyLiving}
-                  className="h-full w-full object-cover"
+                  fill
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  className="object-cover"
                 />
               </div>
             </div>

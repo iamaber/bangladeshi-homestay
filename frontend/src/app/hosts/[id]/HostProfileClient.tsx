@@ -2,7 +2,9 @@
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { assetPath } from "@/lib/paths";
 import { useI18n } from "@/lib/useI18n";
@@ -11,6 +13,8 @@ const openMonths = ["Feb", "Mar", "May", "Jun", "Aug", "Sep", "Nov", "Dec"];
 
 export default function HostProfileClient() {
   const { copy } = useI18n();
+  const params = useParams<{ id: string }>();
+  const hostId = params.id || "featured-host-family";
   const months = copy.pages.hostProfile.months;
 
   return (
@@ -26,14 +30,14 @@ export default function HostProfileClient() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
               <div>
                 <div className="grid grid-cols-2 gap-1.5">
-                  <div className="col-span-2 aspect-[2/1] rounded-sm overflow-hidden">
-                    <img src={assetPath("/images/host-home-entrance.jpeg")} alt={copy.media.hostEntrance} className="w-full h-full object-cover" />
+                  <div className="relative col-span-2 aspect-[2/1] rounded-sm overflow-hidden">
+                    <Image src={assetPath("/images/host-home-entrance.jpeg")} alt={copy.media.hostEntrance} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
                   </div>
-                  <div className="aspect-square rounded-sm overflow-hidden">
-                    <img src={assetPath("/images/guest-bedroom-blue.jpeg")} alt={copy.media.bedroomBlue} className="w-full h-full object-cover" />
+                  <div className="relative aspect-square rounded-sm overflow-hidden">
+                    <Image src={assetPath("/images/guest-bedroom-blue.jpeg")} alt={copy.media.bedroomBlue} fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover" />
                   </div>
-                  <div className="aspect-square rounded-sm overflow-hidden">
-                    <img src={assetPath("/images/home-kitchen.jpeg")} alt={copy.media.homeKitchen} className="w-full h-full object-cover" />
+                  <div className="relative aspect-square rounded-sm overflow-hidden">
+                    <Image src={assetPath("/images/home-kitchen.jpeg")} alt={copy.media.homeKitchen} fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover" />
                   </div>
                 </div>
               </div>
@@ -78,7 +82,7 @@ export default function HostProfileClient() {
                 </div>
 
                 <div className="mt-8">
-                  <Link href="/booking" className="btn-fill-sm inline-block">{copy.common.requestStayFrom}</Link>
+                  <Link href={`/booking?host=${hostId}`} className="btn-fill-sm inline-block">{copy.common.requestStayFrom}</Link>
                 </div>
               </div>
             </div>
@@ -114,7 +118,7 @@ export default function HostProfileClient() {
             <p className="text-[15px] font-light text-cream/70 leading-[1.85] mb-8">
               {copy.pages.hostProfile.ctaText}
             </p>
-            <Link href="/booking" className="btn-cream inline-block">{copy.common.bookNowFrom}</Link>
+            <Link href={`/booking?host=${hostId}`} className="btn-cream inline-block">{copy.common.bookNowFrom}</Link>
           </div>
         </section>
       </main>

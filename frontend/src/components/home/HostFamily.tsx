@@ -1,6 +1,7 @@
 "use client";
 
 import SectionReveal from "@/components/SectionReveal";
+import Image from "next/image";
 import Link from "next/link";
 import { assetPath } from "@/lib/paths";
 import { useI18n } from "@/lib/useI18n";
@@ -16,25 +17,31 @@ export default function HostFamily() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
             {/* Photo grid */}
             <div className="grid grid-cols-2 gap-1.5">
-              <div className="col-span-2 aspect-[2/1] rounded-sm overflow-hidden">
-                <img
+              <div className="relative col-span-2 aspect-[2/1] rounded-sm overflow-hidden">
+                <Image
                   src={assetPath("/images/host-home-entrance.jpeg")}
                   alt={copy.media.hostEntrance}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
                 />
               </div>
-              <div className="aspect-square rounded-sm overflow-hidden">
-                <img
+              <div className="relative aspect-square rounded-sm overflow-hidden">
+                <Image
                   src={assetPath("/images/guest-bedroom-window.jpeg")}
                   alt={copy.media.bedroomWindow}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(min-width: 1024px) 25vw, 50vw"
+                  className="object-cover"
                 />
               </div>
-              <div className="aspect-square rounded-sm overflow-hidden">
-                <img
+              <div className="relative aspect-square rounded-sm overflow-hidden">
+                <Image
                   src={assetPath("/images/family-photo.jpeg")}
                   alt={copy.media.familyPhoto}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(min-width: 1024px) 25vw, 50vw"
+                  className="object-cover"
                 />
               </div>
             </div>
@@ -72,7 +79,7 @@ export default function HostFamily() {
               ))}
 
               <div className="mt-8">
-                <Link href="/booking" className="btn-fill-sm inline-block">
+                <Link href="/booking?host=featured-host-family" className="btn-fill-sm inline-block">
                   {copy.common.requestStay}
                 </Link>
               </div>

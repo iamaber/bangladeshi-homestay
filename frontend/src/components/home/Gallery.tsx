@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import Image from "next/image";
 import { assetPath } from "@/lib/paths";
 import { useI18n } from "@/lib/useI18n";
 
@@ -75,9 +76,9 @@ export default function Gallery() {
               variants={item}
               whileHover={reduceMotion ? undefined : { y: -4 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.5, 1] }}
-              className={`img-zoom rounded-sm overflow-hidden aspect-square md:aspect-auto ${tile.span}`}
+              className={`img-zoom relative rounded-sm overflow-hidden aspect-square md:aspect-auto ${tile.span}`}
             >
-              <img
+              <Image
                 src={assetPath(tile.src)}
                 alt={
                   tile.src.includes("riverside")
@@ -90,8 +91,9 @@ export default function Gallery() {
                           ? copy.media.familyRoom
                           : copy.media.bedroomBlue
                 }
-                loading="lazy"
-                className="w-full h-full object-cover"
+                fill
+                sizes="(min-width: 768px) 33vw, 50vw"
+                className="object-cover"
               />
             </motion.div>
           ))}

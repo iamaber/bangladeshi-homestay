@@ -2,6 +2,7 @@
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Image from "next/image";
 import Link from "next/link";
 import { assetPath } from "@/lib/paths";
 import { useI18n } from "@/lib/useI18n";
@@ -56,10 +57,12 @@ export default function HostsPage() {
                   className="group block bg-cream border border-transparent hover:border-rule transition-all duration-500"
                 >
                   <div className="aspect-[3/2] overflow-hidden relative">
-                    <img
+                    <Image
                       src={host.image}
                       alt={`${name} ${copy.media.hostPreview}`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     {host.available ? (
                       <span className="absolute top-3 right-3 px-3 py-1 bg-green text-cream text-[11px] font-semibold tracking-[0.06em] uppercase">
